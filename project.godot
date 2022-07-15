@@ -14,10 +14,14 @@ config/name="Gmtk_2022"
 run/main_scene="res://main.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Autoload="*res://Autoload.cs"
+
 [physics]
 
 common/enable_pause_aware_picking=true
-3d/physics_engine="GodotPhysics"
+3d/physics_engine="Bullet"
 
 [rendering]
 
