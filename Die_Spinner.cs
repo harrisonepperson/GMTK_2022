@@ -9,23 +9,26 @@ public class Die_Spinner : Control
 
 	[Export]
 	private int rotation_speed = 3;
-	
+
 	[Export]
 	private PackedScene diceModel;
-	
+
 	public enum DieType
 	{
 		Action,
 		DoubleMovement,
 		Movement
 	}
-	
+
 	[Export]
 	private DieType diceType = DieType.Movement;
 
 	private int roll_count = 0;
 
 	private int diceNumber = 0;
+
+	private int cachedRemainingMoves = 0;
+	private int cachedRemainingActions = 0;
 
 	private Player player = null;
 
@@ -34,18 +37,18 @@ public class Die_Spinner : Control
 	{
 		int layerIndex = 19 - GetIndex();
 		GetNode<Camera>("Die_Viewport/Camera").SetCullMaskBit(layerIndex, true);
-		
+
 		rotator = GetNode<Spatial>("Die_Viewport/Rotator");
-		MeshInstance die = (MeshInstance) diceModel.Instance();
+		MeshInstance die = (MeshInstance)diceModel.Instance();
 		die.SetLayerMaskBit(layerIndex, true);
-		
-		foreach(Sprite3D s in die.GetChildren())
+
+		foreach (Sprite3D s in die.GetChildren())
 		{
 			s.SetLayerMaskBit(layerIndex, true);
 		}
-		
+
 		roll();
-		
+
 		rotator.AddChild(die);
 
 		player = GetNode<Player>("/root/Spatial/Player");
@@ -54,6 +57,28 @@ public class Die_Spinner : Control
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(float delta)
 	{
+		if (diceType == DieType.Movement || diceType == DieType.DoubleMovement)
+		{
+			if (player.remainingMoves != cachedRemainingMoves)
+			{
+				cachedRemainingMoves = player.remainingMoves;
+				var newModulate = new Color(Modulate);
+				newModulate.a = cachedRemainingMoves < 1 ? 0.3F : 1F;
+				Modulate = newModulate;
+			}
+		}
+		else if (diceType == DieType.Action)
+		{
+			if (player.remainingActions != cachedRemainingActions)
+			{
+				cachedRemainingActions = player.remainingActions;
+				var newModulate = new Color(Modulate);
+				newModulate.a = cachedRemainingActions < 1 ? 0.3F : 1F;
+				Modulate = newModulate;
+			}
+		}
+
+		//Rotate the die.
 		Vector3 targetRotation;
 
 		switch (currentSide)
@@ -88,18 +113,25 @@ public class Die_Spinner : Control
 			targetRotation.z + addedRotation
 		);
 
-
 		rotator.RotationDegrees = new Vector3(rotator.RotationDegrees.LinearInterpolate(goal, rotation_speed * delta));
 	}
 
 	private void _on_Die_Container_pressed()
 	{
-		if (diceType == DieType.Movement) {
-			handleMovementClick();
-		} else if (diceType == DieType.DoubleMovement) {
-			handleDoubleMovementClick();
-		} else {
-			handleActionClick();
+		if (player.remainingMoves >= 1 && !player.moveLock && !player.actionLock)
+		{
+			if (diceType == DieType.Movement)
+			{
+				handleMovementClick();
+			}
+			else if (diceType == DieType.DoubleMovement)
+			{
+				handleDoubleMovementClick();
+			}
+			else
+			{
+				handleActionClick();
+			}
 		}
 	}
 
@@ -182,7 +214,7 @@ public class Die_Spinner : Control
 
 	public void roll()
 	{
-		roll_count ++;
+		roll_count++;
 		Random rnd = new Random();
 		int newSide = currentSide;
 		while (newSide == currentSide)

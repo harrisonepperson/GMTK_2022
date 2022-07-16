@@ -8,11 +8,11 @@ public class Player : RigidBody
 
 	private Vector3 targetPos;
 
-	private int remainingActions;
-	private int remainingMoves;
+	public int remainingActions;
+	public int remainingMoves;
 
-	private bool moveLock = false;
-	private bool actionLock = false;
+	public bool moveLock = false;
+	public bool actionLock = false;
 
 	[Export]
 	private int maxHealth = 5;
