@@ -1,10 +1,10 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=47 format=2]
 
 [ext_resource path="res://Player.cs" type="Script" id=1]
-[ext_resource path="res://Assets/Buttons/move_up.png" type="Texture" id=2]
-[ext_resource path="res://Assets/Buttons/move_left.png" type="Texture" id=3]
-[ext_resource path="res://Assets/Buttons/move_down.png" type="Texture" id=4]
-[ext_resource path="res://Assets/Buttons/move_right.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Figma Exports/icon-movement.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Figma Exports/icon-refresh.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Figma Exports/icon-empty-slot.png" type="Texture" id=4]
+[ext_resource path="res://Enemy.cs" type="Script" id=5]
 [ext_resource path="res://Assets/Buttons/move_double_right.png" type="Texture" id=6]
 [ext_resource path="res://Assets/Buttons/move_double_left.png" type="Texture" id=7]
 [ext_resource path="res://Assets/Buttons/move_double_down.png" type="Texture" id=8]
@@ -14,7 +14,8 @@
 [ext_resource path="res://Assets/Buttons/action_shield.png" type="Texture" id=12]
 [ext_resource path="res://Assets/Buttons/action_range_attack.png" type="Texture" id=13]
 [ext_resource path="res://Assets/Buttons/action_area_attack.png" type="Texture" id=14]
-[ext_resource path="res://Enemy.cs" type="Script" id=15]
+[ext_resource path="res://Assets/Fonts/Bungee.tres" type="DynamicFont" id=15]
+[ext_resource path="res://Assets/Scenes/Movement Dice.tscn" type="PackedScene" id=16]
 
 [sub_resource type="ProceduralSky" id=5]
 
@@ -29,6 +30,37 @@ size = Vector3( 1.6, 2, 1.6 )
 
 [sub_resource type="BoxShape" id=4]
 extents = Vector3( 20, 1, 20 )
+
+[sub_resource type="StreamTexture" id=27]
+flags = 4
+load_path = "res://.import/icon-movement.png-605f330a2af9cf7f56bd50c5319b33db.stex"
+
+[sub_resource type="StreamTexture" id=28]
+flags = 4
+load_path = "res://.import/icon-movement.png-605f330a2af9cf7f56bd50c5319b33db.stex"
+
+[sub_resource type="StreamTexture" id=29]
+flags = 4
+load_path = "res://.import/icon-empty-slot.png-08abe9d57bc4ca2cd24634330f3c2ee3.stex"
+
+[sub_resource type="StreamTexture" id=30]
+flags = 4
+load_path = "res://.import/move_right.png-beb67e0aa258fa249c880edfea65acfd.stex"
+
+[sub_resource type="StreamTexture" id=26]
+flags = 4
+load_path = "res://.import/end-turn-enabled.png-030eaba1f8c47771aa1d7eea033ba72e.stex"
+
+[sub_resource type="StreamTexture" id=32]
+flags = 4
+load_path = "res://.import/icon-sword.png-42d554175832f52a8c1c16531eed0447.stex"
+
+[sub_resource type="StreamTexture" id=31]
+flags = 4
+load_path = "res://.import/icon-shield.png-249c241b60aa42820062da3a4162885c.stex"
+
+[sub_resource type="ViewportTexture" id=33]
+viewport_path = NodePath("Player/Viewport")
 
 [sub_resource type="CapsuleMesh" id=1]
 radius = 0.5
@@ -130,13 +162,13 @@ emission_on_uv2 = false
 [sub_resource type="QuadMesh" id=25]
 material = SubResource( 24 )
 
-[sub_resource type="CapsuleMesh" id=26]
+[sub_resource type="CapsuleMesh" id=34]
 radius = 0.5
 
-[sub_resource type="SpatialMaterial" id=27]
+[sub_resource type="SpatialMaterial" id=35]
 albedo_color = Color( 1, 0, 0, 1 )
 
-[sub_resource type="CapsuleShape" id=28]
+[sub_resource type="CapsuleShape" id=36]
 radius = 0.5
 
 [node name="Spatial" type="Spatial"]
@@ -146,6 +178,8 @@ environment = SubResource( 6 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 0.423455, -0.680966, 0.597471, 0.648639, 0.688317, 0.324789, -0.632419, 0.250009, 0.733172, 0, 9, 0 )
+include_in_bound = false
+light_cull_mask = 4294443007
 shadow_enabled = true
 
 [node name="Floor" type="StaticBody" parent="."]
@@ -2563,14 +2597,15 @@ script = ExtResource( 1 )
 transform = Transform( 1, 0, 0, 0, 0.809017, 0.587785, 0, -0.587785, 0.809017, 0, 1, 0 )
 
 [node name="Camera" type="Camera" parent="Player/Camera_Holder"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10 )
-cull_mask = 1048573
+transform = Transform( 1, 0, 0, 0, 1, -2.98023e-08, 0, 2.98023e-08, 1, 0, 0, 10 )
+cull_mask = 524285
 
 [node name="FullScreen" type="Control" parent="Player/Camera_Holder/Camera"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="Bottom_Panel" type="Control" parent="Player/Camera_Holder/Camera/FullScreen"]
+visible = false
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -2582,25 +2617,26 @@ margin_bottom = -25.0
 [node name="move_up" type="TextureButton" parent="Player/Camera_Holder/Camera/FullScreen/Bottom_Panel"]
 margin_right = 40.0
 margin_bottom = 40.0
-texture_normal = ExtResource( 2 )
+texture_normal = SubResource( 27 )
 
 [node name="move_left" type="TextureButton" parent="Player/Camera_Holder/Camera/FullScreen/Bottom_Panel"]
 margin_left = 60.0
 margin_right = 40.0
 margin_bottom = 40.0
-texture_normal = ExtResource( 3 )
+texture_normal = SubResource( 28 )
 
 [node name="move_down" type="TextureButton" parent="Player/Camera_Holder/Camera/FullScreen/Bottom_Panel"]
 margin_left = 120.0
 margin_right = 40.0
 margin_bottom = 40.0
-texture_normal = ExtResource( 4 )
+texture_normal = SubResource( 29 )
 
 [node name="move_right" type="TextureButton" parent="Player/Camera_Holder/Camera/FullScreen/Bottom_Panel"]
 margin_left = 180.0
 margin_right = 40.0
 margin_bottom = 40.0
-texture_normal = ExtResource( 5 )
+texture_normal = SubResource( 30 )
+expand = true
 
 [node name="move_double_up" type="TextureButton" parent="Player/Camera_Holder/Camera/FullScreen/Bottom_Panel"]
 margin_top = -76.0
@@ -2668,6 +2704,106 @@ margin_left = -42.5
 margin_right = 42.5
 margin_bottom = 14.0
 
+[node name="UI" type="Control" parent="Player/Camera_Holder/Camera/FullScreen"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -145.0
+
+[node name="ColorRect" type="ColorRect" parent="Player/Camera_Holder/Camera/FullScreen/UI"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.109804, 0.109804, 0.109804, 0.780392 )
+
+[node name="end_turn" type="TextureButton" parent="Player/Camera_Holder/Camera/FullScreen/UI"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -96.0
+margin_top = 45.0
+margin_right = 96.0
+margin_bottom = 100.0
+texture_normal = SubResource( 26 )
+expand = true
+
+[node name="move_up" type="TextureButton" parent="Player/Camera_Holder/Camera/FullScreen/UI"]
+margin_left = 28.0
+margin_top = 44.0
+margin_right = 83.0
+margin_bottom = 99.0
+texture_normal = ExtResource( 2 )
+expand = true
+
+[node name="move_left" type="TextureButton" parent="Player/Camera_Holder/Camera/FullScreen/UI"]
+margin_left = 88.0
+margin_top = 44.0
+margin_right = 143.0
+margin_bottom = 99.0
+texture_normal = ExtResource( 2 )
+expand = true
+
+[node name="move_right" type="TextureButton" parent="Player/Camera_Holder/Camera/FullScreen/UI"]
+margin_left = 208.0
+margin_top = 44.0
+margin_right = 263.0
+margin_bottom = 99.0
+rect_pivot_offset = Vector2( 28, 28 )
+texture_normal = ExtResource( 3 )
+expand = true
+
+[node name="Label" type="Label" parent="Player/Camera_Holder/Camera/FullScreen/UI"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -200.0
+margin_top = 16.0
+margin_right = 200.0
+margin_bottom = 33.0
+custom_fonts/font = ExtResource( 15 )
+text = "Dice left: 3"
+align = 1
+
+[node name="action" type="TextureButton" parent="Player/Camera_Holder/Camera/FullScreen/UI"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -106.0
+margin_top = 43.0
+margin_right = -51.0
+margin_bottom = 98.0
+rect_pivot_offset = Vector2( 28, 28 )
+texture_normal = SubResource( 32 )
+expand = true
+
+[node name="action2" type="TextureButton" parent="Player/Camera_Holder/Camera/FullScreen/UI"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -168.0
+margin_top = 43.0
+margin_right = -113.0
+margin_bottom = 98.0
+rect_pivot_offset = Vector2( 28, 28 )
+texture_normal = SubResource( 31 )
+expand = true
+
+[node name="Control" type="Control" parent="Player/Camera_Holder/Camera/FullScreen/UI"]
+margin_left = 147.0
+margin_top = 44.0
+margin_right = 202.0
+margin_bottom = 99.0
+
+[node name="empty" type="TextureButton" parent="Player/Camera_Holder/Camera/FullScreen/UI/Control"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 56.0
+margin_bottom = 56.0
+texture_normal = ExtResource( 4 )
+expand = true
+
+[node name="dice-viewport-texture" type="TextureRect" parent="Player/Camera_Holder/Camera/FullScreen/UI/Control"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 56.0
+margin_bottom = 56.0
+texture = SubResource( 33 )
+
 [node name="MeshInstance" type="MeshInstance" parent="Player"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1, 0 )
 mesh = SubResource( 1 )
@@ -2693,10 +2829,17 @@ explosiveness = 0.4
 process_material = SubResource( 22 )
 draw_pass_1 = SubResource( 25 )
 
+[node name="Viewport" type="Viewport" parent="Player"]
+size = Vector2( 55, 55 )
+transparent_bg = true
+
+[node name="Spatial" parent="Player/Viewport" instance=ExtResource( 16 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.04158, 0 )
+
 [node name="Enemy" type="RigidBody" parent="." groups=["enemy"]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8 )
 sleeping = true
-script = ExtResource( 15 )
+script = ExtResource( 5 )
 
 [node name="Eyes" type="RayCast" parent="Enemy"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
@@ -2707,12 +2850,12 @@ debug_shape_thickness = 5
 
 [node name="MeshInstance" type="MeshInstance" parent="Enemy"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1, 0 )
-mesh = SubResource( 26 )
-material/0 = SubResource( 27 )
+mesh = SubResource( 34 )
+material/0 = SubResource( 35 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Enemy"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1, 0 )
-shape = SubResource( 28 )
+shape = SubResource( 36 )
 
 [connection signal="pressed" from="Player/Camera_Holder/Camera/FullScreen/Bottom_Panel/move_up" to="Player" method="_on_up_pressed"]
 [connection signal="pressed" from="Player/Camera_Holder/Camera/FullScreen/Bottom_Panel/move_left" to="Player" method="_on_left_pressed"]
@@ -2727,3 +2870,10 @@ shape = SubResource( 28 )
 [connection signal="pressed" from="Player/Camera_Holder/Camera/FullScreen/Bottom_Panel/action_light_attack" to="Player" method="_on_action_light_attack_pressed"]
 [connection signal="pressed" from="Player/Camera_Holder/Camera/FullScreen/Bottom_Panel/action_area_attack" to="Player" method="_on_action_area_attack_pressed"]
 [connection signal="pressed" from="Player/Camera_Holder/Camera/FullScreen/Bottom_Panel/action_range_attack" to="Player" method="_on_action_range_attack_pressed"]
+[connection signal="pressed" from="Player/Camera_Holder/Camera/FullScreen/UI/end_turn" to="Player" method="_on_up_pressed"]
+[connection signal="pressed" from="Player/Camera_Holder/Camera/FullScreen/UI/move_up" to="Player" method="_on_up_pressed"]
+[connection signal="pressed" from="Player/Camera_Holder/Camera/FullScreen/UI/move_left" to="Player" method="_on_left_pressed"]
+[connection signal="pressed" from="Player/Camera_Holder/Camera/FullScreen/UI/move_right" to="Player" method="_on_right_pressed"]
+[connection signal="pressed" from="Player/Camera_Holder/Camera/FullScreen/UI/action" to="Player" method="_on_right_pressed"]
+[connection signal="pressed" from="Player/Camera_Holder/Camera/FullScreen/UI/action2" to="Player" method="_on_right_pressed"]
+[connection signal="pressed" from="Player/Camera_Holder/Camera/FullScreen/UI/Control/empty" to="Player" method="_on_left_pressed"]
