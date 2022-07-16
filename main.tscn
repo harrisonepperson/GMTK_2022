@@ -2789,6 +2789,14 @@ margin_top = 44.0
 margin_right = 202.0
 margin_bottom = 99.0
 
+[node name="dice-viewport-texture" type="TextureRect" parent="Player/Camera_Holder/Camera/FullScreen/UI/Control"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 56.0
+margin_bottom = 56.0
+texture = SubResource( 33 )
+flip_v = true
+
 [node name="empty" type="TextureButton" parent="Player/Camera_Holder/Camera/FullScreen/UI/Control"]
 margin_left = 1.0
 margin_top = 1.0
@@ -2796,13 +2804,6 @@ margin_right = 56.0
 margin_bottom = 56.0
 texture_normal = ExtResource( 4 )
 expand = true
-
-[node name="dice-viewport-texture" type="TextureRect" parent="Player/Camera_Holder/Camera/FullScreen/UI/Control"]
-margin_left = 1.0
-margin_top = 1.0
-margin_right = 56.0
-margin_bottom = 56.0
-texture = SubResource( 33 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Player"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1, 0 )
@@ -2833,7 +2834,7 @@ draw_pass_1 = SubResource( 25 )
 size = Vector2( 55, 55 )
 transparent_bg = true
 
-[node name="Spatial" parent="Player/Viewport" instance=ExtResource( 16 )]
+[node name="movement-die" parent="Player/Viewport" instance=ExtResource( 16 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.04158, 0 )
 
 [node name="Enemy" type="RigidBody" parent="." groups=["enemy"]]
@@ -2876,4 +2877,4 @@ shape = SubResource( 36 )
 [connection signal="pressed" from="Player/Camera_Holder/Camera/FullScreen/UI/move_right" to="Player" method="_on_right_pressed"]
 [connection signal="pressed" from="Player/Camera_Holder/Camera/FullScreen/UI/action_heal" to="Player" method="_on_action_heal_pressed"]
 [connection signal="pressed" from="Player/Camera_Holder/Camera/FullScreen/UI/action_shield" to="Player" method="_on_action_shield_pressed"]
-[connection signal="pressed" from="Player/Camera_Holder/Camera/FullScreen/UI/Control/empty" to="Player" method="_on_left_pressed"]
+[connection signal="pressed" from="Player/Camera_Holder/Camera/FullScreen/UI/Control/empty" to="Player/Viewport/movement-die" method="on_click"]
