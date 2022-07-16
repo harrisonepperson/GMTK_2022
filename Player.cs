@@ -171,6 +171,26 @@ public class Player : RigidBody
 	{
 		if (autoload.isPlayerTurn && !moveLock && !actionLock && remainingActions > 0)
 		{
+			Particles aoe = GetNode<Particles>("AOE_Attack_Particles");
+			
+			Godot.Collections.Array enemies = GetTree().GetNodesInGroup("enemy");
+			if (enemies.Count > 0)
+			{
+				aoe.Emitting = true;
+				foreach(Enemy e in enemies)
+				{
+					if (!e.isDead)
+					{
+						float dist = Translation.DistanceSquaredTo(e.Translation);
+						
+						if (dist <= 6)
+						{
+							e.damage(1);
+						}
+					}
+				}
+			}
+			
 			handle_action();
 			remainingActions--;
 			return;
