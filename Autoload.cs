@@ -7,7 +7,7 @@ public class Autoload : Node
 	public bool isPlayerTurn = true;
 	public int score = 0;
 
-	public int playerHealth = 5;
+	public int playerHealth = 4;
 	public int playerShield = 0;
 	
 	[Signal]
