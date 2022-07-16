@@ -29,7 +29,7 @@ public class Autoload : Node
 			foreach (Enemy e in enemies)
 			{
 //				GD.Print("Found enemy in list", e.isEnemyTurn);
-				if (e.isEnemyTurn) {
+				if (!e.isDead && e.isEnemyTurn) {
 //					GD.Print("Enemy reported still in progress");
 					enemyStillPlaying = true;
 				}

@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=2]
+[gd_scene load_steps=56 format=2]
 
 [ext_resource path="res://Player.cs" type="Script" id=1]
 [ext_resource path="res://Assets/Figma Exports/icon-movement.png" type="Texture" id=2]
@@ -16,6 +16,14 @@
 [ext_resource path="res://Assets/Buttons/action_area_attack.png" type="Texture" id=14]
 [ext_resource path="res://Assets/Fonts/Bungee.tres" type="DynamicFont" id=15]
 [ext_resource path="res://Assets/Scenes/Movement Dice.tscn" type="PackedScene" id=16]
+[ext_resource path="res://Assets/Buttons/move_down.png" type="Texture" id=17]
+[ext_resource path="res://Assets/Buttons/move_right.png" type="Texture" id=18]
+[ext_resource path="res://Assets/Buttons/move_left.png" type="Texture" id=19]
+[ext_resource path="res://Assets/Buttons/move_up.png" type="Texture" id=20]
+[ext_resource path="res://Range_Attack_Particles.cs" type="Script" id=21]
+[ext_resource path="res://Assets/Models/gravestone.glb" type="PackedScene" id=22]
+[ext_resource path="res://Assets/Models/skeleton.glb" type="PackedScene" id=23]
+[ext_resource path="res://Assets/Models/knight.glb" type="PackedScene" id=24]
 
 [sub_resource type="ProceduralSky" id=5]
 
@@ -30,22 +38,6 @@ size = Vector3( 1.6, 2, 1.6 )
 
 [sub_resource type="BoxShape" id=4]
 extents = Vector3( 20, 1, 20 )
-
-[sub_resource type="StreamTexture" id=27]
-flags = 4
-load_path = "res://.import/icon-movement.png-605f330a2af9cf7f56bd50c5319b33db.stex"
-
-[sub_resource type="StreamTexture" id=28]
-flags = 4
-load_path = "res://.import/icon-movement.png-605f330a2af9cf7f56bd50c5319b33db.stex"
-
-[sub_resource type="StreamTexture" id=29]
-flags = 4
-load_path = "res://.import/icon-empty-slot.png-08abe9d57bc4ca2cd24634330f3c2ee3.stex"
-
-[sub_resource type="StreamTexture" id=30]
-flags = 4
-load_path = "res://.import/move_right.png-beb67e0aa258fa249c880edfea65acfd.stex"
 
 [sub_resource type="StreamTexture" id=26]
 flags = 4
@@ -162,14 +154,50 @@ emission_on_uv2 = false
 [sub_resource type="QuadMesh" id=25]
 material = SubResource( 24 )
 
-[sub_resource type="CapsuleMesh" id=34]
-radius = 0.5
+[sub_resource type="Gradient" id=37]
+offsets = PoolRealArray( 0, 0.124224, 0.409938, 0.509317, 0.944099 )
+colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 1, 1, 0.513726, 0, 1, 1, 0.513726, 0, 1, 1, 0.513726, 0, 0 )
 
-[sub_resource type="SpatialMaterial" id=35]
-albedo_color = Color( 1, 0, 0, 1 )
+[sub_resource type="GradientTexture" id=38]
+gradient = SubResource( 37 )
 
-[sub_resource type="CapsuleShape" id=36]
-radius = 0.5
+[sub_resource type="Curve" id=39]
+_data = [ Vector2( 0, 0 ), 0.0, 6.48182, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=40]
+curve = SubResource( 39 )
+
+[sub_resource type="ParticlesMaterial" id=41]
+trail_divisor = 5
+emission_shape = 1
+emission_sphere_radius = 0.3
+gravity = Vector3( 0, 3, 0 )
+scale = 0.2
+scale_random = 0.3
+scale_curve = SubResource( 40 )
+color = Color( 1, 0.631373, 0, 1 )
+color_ramp = SubResource( 38 )
+hue_variation = 0.25
+hue_variation_random = 0.4
+
+[sub_resource type="SpatialMaterial" id=42]
+flags_transparent = true
+vertex_color_use_as_albedo = true
+params_billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+emission_enabled = true
+emission = Color( 1, 0.513726, 0, 1 )
+emission_energy = 1.0
+emission_operator = 0
+emission_on_uv2 = false
+
+[sub_resource type="QuadMesh" id=43]
+material = SubResource( 42 )
+
+[sub_resource type="BoxShape" id=44]
+extents = Vector3( 0.2, 1, 0.2 )
 
 [node name="Spatial" type="Spatial"]
 
@@ -2605,7 +2633,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="Bottom_Panel" type="Control" parent="Player/Camera_Holder/Camera/FullScreen"]
-visible = false
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -2617,25 +2644,25 @@ margin_bottom = -25.0
 [node name="move_up" type="TextureButton" parent="Player/Camera_Holder/Camera/FullScreen/Bottom_Panel"]
 margin_right = 40.0
 margin_bottom = 40.0
-texture_normal = SubResource( 27 )
+texture_normal = ExtResource( 20 )
 
 [node name="move_left" type="TextureButton" parent="Player/Camera_Holder/Camera/FullScreen/Bottom_Panel"]
 margin_left = 60.0
 margin_right = 40.0
 margin_bottom = 40.0
-texture_normal = SubResource( 28 )
+texture_normal = ExtResource( 19 )
 
 [node name="move_down" type="TextureButton" parent="Player/Camera_Holder/Camera/FullScreen/Bottom_Panel"]
 margin_left = 120.0
 margin_right = 40.0
 margin_bottom = 40.0
-texture_normal = SubResource( 29 )
+texture_normal = ExtResource( 17 )
 
 [node name="move_right" type="TextureButton" parent="Player/Camera_Holder/Camera/FullScreen/Bottom_Panel"]
 margin_left = 180.0
-margin_right = 40.0
-margin_bottom = 40.0
-texture_normal = SubResource( 30 )
+margin_right = 230.0
+margin_bottom = 53.0
+texture_normal = ExtResource( 18 )
 expand = true
 
 [node name="move_double_up" type="TextureButton" parent="Player/Camera_Holder/Camera/FullScreen/Bottom_Panel"]
@@ -2705,6 +2732,7 @@ margin_right = 42.5
 margin_bottom = 14.0
 
 [node name="UI" type="Control" parent="Player/Camera_Holder/Camera/FullScreen"]
+visible = false
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -2807,8 +2835,12 @@ expand = true
 
 [node name="MeshInstance" type="MeshInstance" parent="Player"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1, 0 )
+visible = false
 mesh = SubResource( 1 )
 material/0 = null
+
+[node name="knight" parent="Player" instance=ExtResource( 24 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Player"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1, 0 )
@@ -2830,6 +2862,20 @@ explosiveness = 0.4
 process_material = SubResource( 22 )
 draw_pass_1 = SubResource( 25 )
 
+[node name="Light_Attack_Particles" type="Particles" parent="Player"]
+
+[node name="Range_Attack_Particles" type="Particles" parent="Player"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
+emitting = false
+amount = 200
+one_shot = true
+local_coords = false
+process_material = SubResource( 41 )
+draw_pass_1 = SubResource( 43 )
+script = ExtResource( 21 )
+
+[node name="AOE_Attack_Particles" type="Particles" parent="Player"]
+
 [node name="Viewport" type="Viewport" parent="Player"]
 size = Vector2( 55, 55 )
 transparent_bg = true
@@ -2837,10 +2883,19 @@ transparent_bg = true
 [node name="movement-die" parent="Player/Viewport" instance=ExtResource( 16 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.04158, 0 )
 
+[node name="ActionLock" type="Timer" parent="Player"]
+wait_time = 1.5
+one_shot = true
+
 [node name="Enemy" type="RigidBody" parent="." groups=["enemy"]]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0 )
 sleeping = true
 script = ExtResource( 5 )
+
+[node name="gravestone" parent="Enemy" instance=ExtResource( 22 )]
+visible = false
+
+[node name="skeleton" parent="Enemy" instance=ExtResource( 23 )]
 
 [node name="Eyes" type="RayCast" parent="Enemy"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
@@ -2849,14 +2904,9 @@ cast_to = Vector3( 0, 0, -10 )
 debug_shape_custom_color = Color( 0.00784314, 1, 0, 1 )
 debug_shape_thickness = 5
 
-[node name="MeshInstance" type="MeshInstance" parent="Enemy"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1, 0 )
-mesh = SubResource( 34 )
-material/0 = SubResource( 35 )
-
 [node name="CollisionShape" type="CollisionShape" parent="Enemy"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1, 0 )
-shape = SubResource( 36 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+shape = SubResource( 44 )
 
 [connection signal="pressed" from="Player/Camera_Holder/Camera/FullScreen/Bottom_Panel/move_up" to="Player" method="_on_up_pressed"]
 [connection signal="pressed" from="Player/Camera_Holder/Camera/FullScreen/Bottom_Panel/move_left" to="Player" method="_on_left_pressed"]
@@ -2878,3 +2928,4 @@ shape = SubResource( 36 )
 [connection signal="pressed" from="Player/Camera_Holder/Camera/FullScreen/UI/action_heal" to="Player" method="_on_action_heal_pressed"]
 [connection signal="pressed" from="Player/Camera_Holder/Camera/FullScreen/UI/action_shield" to="Player" method="_on_action_shield_pressed"]
 [connection signal="pressed" from="Player/Camera_Holder/Camera/FullScreen/UI/Control/empty" to="Player/Viewport/movement-die" method="on_click"]
+[connection signal="timeout" from="Player/ActionLock" to="Player" method="_on_ActionLock_timeout"]
