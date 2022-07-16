@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=2]
+[gd_scene load_steps=54 format=2]
 
 [ext_resource path="res://Player.cs" type="Script" id=1]
 [ext_resource path="res://Assets/Scenes/Die_Spinner.tscn" type="PackedScene" id=2]
@@ -170,6 +170,52 @@ emission_on_uv2 = false
 
 [sub_resource type="QuadMesh" id=43]
 material = SubResource( 42 )
+
+[sub_resource type="Gradient" id=45]
+offsets = PoolRealArray( 0, 0.0739796, 0.219388, 0.688776, 1 )
+colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 0.709804, 1, 0.644108, 0.0820313, 0.752941, 1, 0.631373, 0, 0.964706, 1, 0.631373, 0, 0 )
+
+[sub_resource type="GradientTexture" id=46]
+gradient = SubResource( 45 )
+
+[sub_resource type="Curve" id=47]
+max_value = 100.0
+_data = [ Vector2( 0, 0.795456 ), 0.0, 0.0, 0, 0, Vector2( 0.4, 100 ), 851.811, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=48]
+curve = SubResource( 47 )
+
+[sub_resource type="Curve" id=49]
+_data = [ Vector2( 0, 0 ), 0.0, 12.6544, 0, 0, Vector2( 0.209639, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=50]
+curve = SubResource( 49 )
+
+[sub_resource type="ParticlesMaterial" id=51]
+emission_shape = 5
+emission_ring_radius = 2.0
+emission_ring_inner_radius = 0.8
+emission_ring_height = 0.0
+emission_ring_axis = Vector3( 0, 1, 0 )
+gravity = Vector3( 0, 0, 0 )
+radial_accel = 20.0
+tangential_accel = 8.0
+damping_curve = SubResource( 48 )
+scale = 0.2
+scale_random = 0.04
+scale_curve = SubResource( 50 )
+color = Color( 0.898039, 0.611765, 0, 1 )
+color_ramp = SubResource( 46 )
+hue_variation_random = 0.57
+
+[sub_resource type="SpatialMaterial" id=52]
+flags_transparent = true
+vertex_color_use_as_albedo = true
+
+[sub_resource type="SphereMesh" id=53]
+material = SubResource( 52 )
+radial_segments = 16
+rings = 8
 
 [sub_resource type="StreamTexture" id=26]
 flags = 4
@@ -2657,6 +2703,13 @@ draw_pass_1 = SubResource( 43 )
 script = ExtResource( 21 )
 
 [node name="AOE_Attack_Particles" type="Particles" parent="Player"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.169727, 0 )
+emitting = false
+amount = 300
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource( 51 )
+draw_pass_1 = SubResource( 53 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Player"]
 
