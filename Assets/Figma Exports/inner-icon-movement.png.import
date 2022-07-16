@@ -2,8 +2,8 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/action_area_attack.png-2b16ad84cdcd9165fd4c80393199dc20.s3tc.stex"
-path.etc2="res://.import/action_area_attack.png-2b16ad84cdcd9165fd4c80393199dc20.etc2.stex"
+path.s3tc="res://.import/inner-icon-movement.png-faa81f8aba2cd5b85f1cfb6871d81abd.s3tc.stex"
+path.etc2="res://.import/inner-icon-movement.png-faa81f8aba2cd5b85f1cfb6871d81abd.etc2.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc2" ],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/Buttons/action_area_attack.png"
-dest_files=[ "res://.import/action_area_attack.png-2b16ad84cdcd9165fd4c80393199dc20.s3tc.stex", "res://.import/action_area_attack.png-2b16ad84cdcd9165fd4c80393199dc20.etc2.stex" ]
+source_file="res://Assets/Figma Exports/inner-icon-movement.png"
+dest_files=[ "res://.import/inner-icon-movement.png-faa81f8aba2cd5b85f1cfb6871d81abd.s3tc.stex", "res://.import/inner-icon-movement.png-faa81f8aba2cd5b85f1cfb6871d81abd.etc2.stex" ]
 
 [params]
 
