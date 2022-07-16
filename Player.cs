@@ -38,9 +38,14 @@ public class Player : RigidBody
 
 	public override void _Process(float delta)
 	{
+		Label turnLabel = GetNode<Label>("Camera_Holder/Camera/FullScreen/Turn");
+		if (autoload.isPlayerTurn) {
+			turnLabel.Text = "PLAYER TURN";
+		} else {
+			turnLabel.Text = "ENEMY TURN";
+		}
+		
 		if (moveLock) {
-			GD.Print("moving");
-			GD.Print(Translation.DistanceSquaredTo(targetPos));
 			Translation = Translation.LinearInterpolate(targetPos, slideSpeed * delta);
 			
 			if (Translation.DistanceSquaredTo(targetPos) <= 0.001) {
@@ -49,9 +54,15 @@ public class Player : RigidBody
 			}
 		}
 		
-		if (remainingActions == 0 && remainingMoves == 0) {
-			autoload.isPlayerTurn = false;
+		if (autoload.isPlayerTurn && remainingActions == 0 && remainingMoves == 0) {
+			autoload.finishPlayerTurn();
 		}
+	}
+	
+	public void startTurn()
+	{
+		remainingActions = defaultActionsPerTurn;
+		remainingMoves = defaultMovesPerTurn;
 	}
 
 	private void kill()
