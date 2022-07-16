@@ -12,6 +12,8 @@ config_version=4
 
 config/name="Gmtk_2022"
 run/main_scene="res://Assets/Scenes/Title.tscn"
+boot_splash/image="res://Assets/Figma Exports/splash.png"
+boot_splash/bg_color=Color( 0.109804, 0.109804, 0.109804, 1 )
 config/icon="res://icon.png"
 
 [autoload]
