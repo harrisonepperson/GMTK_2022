@@ -1,6 +1,6 @@
 ﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gmtk_2022", "Gmtk_2022.csproj", "{3DFE82F0-C0DE-43CA-81A9-9C3B613804FD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gmtk_2022", "Gmtk_2022.csproj", "{D3F8AB59-4FB0-4100-A91A-C2E80E64E697}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,11 +9,11 @@ Global
 	ExportRelease|Any CPU = ExportRelease|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3DFE82F0-C0DE-43CA-81A9-9C3B613804FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3DFE82F0-C0DE-43CA-81A9-9C3B613804FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3DFE82F0-C0DE-43CA-81A9-9C3B613804FD}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
-		{3DFE82F0-C0DE-43CA-81A9-9C3B613804FD}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
-		{3DFE82F0-C0DE-43CA-81A9-9C3B613804FD}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
-		{3DFE82F0-C0DE-43CA-81A9-9C3B613804FD}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+		{D3F8AB59-4FB0-4100-A91A-C2E80E64E697}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3F8AB59-4FB0-4100-A91A-C2E80E64E697}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3F8AB59-4FB0-4100-A91A-C2E80E64E697}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{D3F8AB59-4FB0-4100-A91A-C2E80E64E697}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{D3F8AB59-4FB0-4100-A91A-C2E80E64E697}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{D3F8AB59-4FB0-4100-A91A-C2E80E64E697}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
 	EndGlobalSection
 EndGlobal

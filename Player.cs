@@ -38,7 +38,7 @@ public class Player : RigidBody
 
 	public override void _Process(float delta)
 	{
-		Label turnLabel = GetNode<Label>("Camera_Holder/Camera/FullScreen/Turn");
+		Label turnLabel = GetNode<Label>("CanvasLayer/FullScreen/Turn");
 		if (autoload.isPlayerTurn)
 		{
 			turnLabel.Text = "PLAYER TURN";
@@ -135,7 +135,7 @@ public class Player : RigidBody
 		actionTimer.Start();
 	}
 
-	private void _on_action_heal_pressed()
+	public void _on_action_heal_pressed()
 	{
 		if (autoload.isPlayerTurn && !moveLock && !actionLock && remainingActions > 0)
 		{
@@ -146,7 +146,7 @@ public class Player : RigidBody
 		}
 	}
 
-	private void _on_action_shield_pressed()
+	public void _on_action_shield_pressed()
 	{
 		if (autoload.isPlayerTurn && !moveLock && !actionLock && remainingActions > 0)
 		{
@@ -157,7 +157,7 @@ public class Player : RigidBody
 		}
 	}
 
-	private void _on_action_light_attack_pressed()
+	public void _on_action_light_attack_pressed()
 	{
 		if (autoload.isPlayerTurn && !moveLock && !actionLock && remainingActions > 0)
 		{
@@ -167,7 +167,7 @@ public class Player : RigidBody
 		}
 	}
 
-	private void _on_action_area_attack_pressed()
+	public void _on_action_area_attack_pressed()
 	{
 		if (autoload.isPlayerTurn && !moveLock && !actionLock && remainingActions > 0)
 		{
@@ -177,7 +177,7 @@ public class Player : RigidBody
 		}
 	}
 
-	private void _on_action_range_attack_pressed()
+	public void _on_action_range_attack_pressed()
 	{
 		if (autoload.isPlayerTurn && !moveLock && !actionLock && remainingActions > 0)
 		{

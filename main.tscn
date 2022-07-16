@@ -1,25 +1,12 @@
-[gd_scene load_steps=59 format=2]
+[gd_scene load_steps=45 format=2]
 
 [ext_resource path="res://Player.cs" type="Script" id=1]
-[ext_resource path="res://Assets/Figma Exports/icon-movement.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Scenes/Die_Spinner.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/Figma Exports/icon-refresh.png" type="Texture" id=3]
-[ext_resource path="res://Assets/Figma Exports/icon-empty-slot.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Scenes/Movement Dice.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Enemy.cs" type="Script" id=5]
-[ext_resource path="res://Assets/Buttons/move_double_right.png" type="Texture" id=6]
-[ext_resource path="res://Assets/Buttons/move_double_left.png" type="Texture" id=7]
-[ext_resource path="res://Assets/Buttons/move_double_down.png" type="Texture" id=8]
-[ext_resource path="res://Assets/Buttons/move_double_up.png" type="Texture" id=9]
-[ext_resource path="res://Assets/Buttons/action_light_attack.png" type="Texture" id=10]
-[ext_resource path="res://Assets/Buttons/action_heal.png" type="Texture" id=11]
-[ext_resource path="res://Assets/Buttons/action_shield.png" type="Texture" id=12]
-[ext_resource path="res://Assets/Buttons/action_range_attack.png" type="Texture" id=13]
-[ext_resource path="res://Assets/Buttons/action_area_attack.png" type="Texture" id=14]
+[ext_resource path="res://move_reroll.cs" type="Script" id=6]
 [ext_resource path="res://Assets/Figma Exports/health-full.png" type="Texture" id=15]
-[ext_resource path="res://Assets/Scenes/Movement Dice.tscn" type="PackedScene" id=16]
-[ext_resource path="res://Assets/Buttons/move_down.png" type="Texture" id=17]
-[ext_resource path="res://Assets/Buttons/move_right.png" type="Texture" id=18]
-[ext_resource path="res://Assets/Buttons/move_left.png" type="Texture" id=19]
-[ext_resource path="res://Assets/Buttons/move_up.png" type="Texture" id=20]
 [ext_resource path="res://Range_Attack_Particles.cs" type="Script" id=21]
 [ext_resource path="res://Assets/Models/gravestone.glb" type="PackedScene" id=22]
 [ext_resource path="res://Assets/Models/skeleton.glb" type="PackedScene" id=23]
@@ -41,21 +28,6 @@ size = Vector3( 1.6, 2, 1.6 )
 
 [sub_resource type="BoxShape" id=4]
 extents = Vector3( 20, 1, 20 )
-
-[sub_resource type="StreamTexture" id=26]
-flags = 4
-load_path = "res://.import/end-turn-enabled.png-030eaba1f8c47771aa1d7eea033ba72e.stex"
-
-[sub_resource type="StreamTexture" id=32]
-flags = 4
-load_path = "res://.import/icon-sword.png-42d554175832f52a8c1c16531eed0447.stex"
-
-[sub_resource type="StreamTexture" id=31]
-flags = 4
-load_path = "res://.import/icon-shield.png-249c241b60aa42820062da3a4162885c.stex"
-
-[sub_resource type="ViewportTexture" id=33]
-viewport_path = NodePath("Player/Viewport")
 
 [sub_resource type="CapsuleMesh" id=1]
 radius = 0.5
@@ -198,6 +170,18 @@ emission_on_uv2 = false
 
 [sub_resource type="QuadMesh" id=43]
 material = SubResource( 42 )
+
+[sub_resource type="StreamTexture" id=26]
+flags = 4
+load_path = "res://.import/end-turn-enabled.png-030eaba1f8c47771aa1d7eea033ba72e.stex"
+
+[sub_resource type="StreamTexture" id=32]
+flags = 4
+load_path = "res://.import/icon-sword.png-42d554175832f52a8c1c16531eed0447.stex"
+
+[sub_resource type="StreamTexture" id=31]
+flags = 4
+load_path = "res://.import/icon-shield.png-249c241b60aa42820062da3a4162885c.stex"
 
 [sub_resource type="BoxShape" id=44]
 extents = Vector3( 0.2, 1, 0.2 )
@@ -2629,285 +2613,7 @@ transform = Transform( 1, 0, 0, 0, 0.809017, 0.587785, 0, -0.587785, 0.809017, 0
 
 [node name="Camera" type="Camera" parent="Player/Camera_Holder"]
 transform = Transform( 1, 0, 0, 0, 1, -2.98023e-08, 0, 2.98023e-08, 1, 0, 0, 10 )
-cull_mask = 524285
-
-[node name="FullScreen" type="Control" parent="Player/Camera_Holder/Camera"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-
-[node name="Bottom_Panel" type="Control" parent="Player/Camera_Holder/Camera/FullScreen"]
-visible = false
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 25.0
-margin_top = -100.0
-margin_right = -25.0
-margin_bottom = -25.0
-
-[node name="move_up" type="TextureButton" parent="Player/Camera_Holder/Camera/FullScreen/Bottom_Panel"]
-margin_right = 40.0
-margin_bottom = 40.0
-texture_normal = ExtResource( 20 )
-
-[node name="move_left" type="TextureButton" parent="Player/Camera_Holder/Camera/FullScreen/Bottom_Panel"]
-margin_left = 60.0
-margin_right = 40.0
-margin_bottom = 40.0
-texture_normal = ExtResource( 19 )
-
-[node name="move_down" type="TextureButton" parent="Player/Camera_Holder/Camera/FullScreen/Bottom_Panel"]
-margin_left = 120.0
-margin_right = 40.0
-margin_bottom = 40.0
-texture_normal = ExtResource( 17 )
-
-[node name="move_right" type="TextureButton" parent="Player/Camera_Holder/Camera/FullScreen/Bottom_Panel"]
-margin_left = 180.0
-margin_right = 230.0
-margin_bottom = 53.0
-texture_normal = ExtResource( 18 )
-expand = true
-
-[node name="move_double_up" type="TextureButton" parent="Player/Camera_Holder/Camera/FullScreen/Bottom_Panel"]
-margin_top = -76.0
-margin_right = 50.0
-margin_bottom = -26.0
-texture_normal = ExtResource( 9 )
-
-[node name="move_double_left" type="TextureButton" parent="Player/Camera_Holder/Camera/FullScreen/Bottom_Panel"]
-margin_left = 60.0
-margin_top = -76.0
-margin_right = 110.0
-margin_bottom = -26.0
-texture_normal = ExtResource( 7 )
-
-[node name="move_double_down" type="TextureButton" parent="Player/Camera_Holder/Camera/FullScreen/Bottom_Panel"]
-margin_left = 120.0
-margin_top = -76.0
-margin_right = 170.0
-margin_bottom = -26.0
-texture_normal = ExtResource( 8 )
-
-[node name="move_double_right" type="TextureButton" parent="Player/Camera_Holder/Camera/FullScreen/Bottom_Panel"]
-margin_left = 180.0
-margin_top = -76.0
-margin_right = 230.0
-margin_bottom = -26.0
-texture_normal = ExtResource( 6 )
-
-[node name="action_heal" type="TextureButton" parent="Player/Camera_Holder/Camera/FullScreen/Bottom_Panel"]
-margin_left = 672.0
-margin_right = 722.0
-margin_bottom = 50.0
-texture_normal = ExtResource( 11 )
-
-[node name="action_shield" type="TextureButton" parent="Player/Camera_Holder/Camera/FullScreen/Bottom_Panel"]
-margin_left = 732.0
-margin_right = 782.0
-margin_bottom = 50.0
-texture_normal = ExtResource( 12 )
-
-[node name="action_light_attack" type="TextureButton" parent="Player/Camera_Holder/Camera/FullScreen/Bottom_Panel"]
-margin_left = 792.0
-margin_right = 842.0
-margin_bottom = 50.0
-texture_normal = ExtResource( 10 )
-
-[node name="action_area_attack" type="TextureButton" parent="Player/Camera_Holder/Camera/FullScreen/Bottom_Panel"]
-margin_left = 852.0
-margin_right = 902.0
-margin_bottom = 50.0
-texture_normal = ExtResource( 14 )
-
-[node name="action_range_attack" type="TextureButton" parent="Player/Camera_Holder/Camera/FullScreen/Bottom_Panel"]
-margin_left = 912.0
-margin_right = 962.0
-margin_bottom = 50.0
-texture_normal = ExtResource( 13 )
-
-[node name="Turn" type="Label" parent="Player/Camera_Holder/Camera/FullScreen"]
-anchor_left = 0.5
-anchor_top = 0.05
-anchor_right = 0.5
-anchor_bottom = 0.05
-margin_left = -42.5
-margin_right = 42.5
-margin_bottom = 14.0
-
-[node name="Bottom UI" type="Control" parent="Player/Camera_Holder/Camera/FullScreen"]
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = -145.0
-
-[node name="ColorRect" type="ColorRect" parent="Player/Camera_Holder/Camera/FullScreen/Bottom UI"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color( 0.109804, 0.109804, 0.109804, 0.780392 )
-
-[node name="end_turn" type="TextureButton" parent="Player/Camera_Holder/Camera/FullScreen/Bottom UI"]
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = -96.0
-margin_top = 45.0
-margin_right = 96.0
-margin_bottom = 100.0
-texture_normal = SubResource( 26 )
-expand = true
-
-[node name="move_up" type="TextureButton" parent="Player/Camera_Holder/Camera/FullScreen/Bottom UI"]
-margin_left = 28.0
-margin_top = 44.0
-margin_right = 83.0
-margin_bottom = 99.0
-texture_normal = ExtResource( 2 )
-expand = true
-
-[node name="move_left" type="TextureButton" parent="Player/Camera_Holder/Camera/FullScreen/Bottom UI"]
-margin_left = 88.0
-margin_top = 44.0
-margin_right = 143.0
-margin_bottom = 99.0
-texture_normal = ExtResource( 2 )
-expand = true
-
-[node name="move_right" type="TextureButton" parent="Player/Camera_Holder/Camera/FullScreen/Bottom UI"]
-margin_left = 208.0
-margin_top = 44.0
-margin_right = 263.0
-margin_bottom = 99.0
-rect_pivot_offset = Vector2( 28, 28 )
-texture_normal = ExtResource( 3 )
-expand = true
-
-[node name="action_heal" type="TextureButton" parent="Player/Camera_Holder/Camera/FullScreen/Bottom UI"]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = -106.0
-margin_top = 43.0
-margin_right = -51.0
-margin_bottom = 98.0
-rect_pivot_offset = Vector2( 28, 28 )
-texture_normal = SubResource( 32 )
-expand = true
-
-[node name="action_shield" type="TextureButton" parent="Player/Camera_Holder/Camera/FullScreen/Bottom UI"]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = -168.0
-margin_top = 43.0
-margin_right = -113.0
-margin_bottom = 98.0
-rect_pivot_offset = Vector2( 28, 28 )
-texture_normal = SubResource( 31 )
-expand = true
-
-[node name="Control" type="Control" parent="Player/Camera_Holder/Camera/FullScreen/Bottom UI"]
-margin_left = 147.0
-margin_top = 44.0
-margin_right = 202.0
-margin_bottom = 99.0
-
-[node name="dice-viewport-texture" type="TextureRect" parent="Player/Camera_Holder/Camera/FullScreen/Bottom UI/Control"]
-margin_left = 1.0
-margin_top = 1.0
-margin_right = 56.0
-margin_bottom = 56.0
-texture = SubResource( 33 )
-flip_v = true
-
-[node name="empty" type="TextureButton" parent="Player/Camera_Holder/Camera/FullScreen/Bottom UI/Control"]
-margin_left = 1.0
-margin_top = 1.0
-margin_right = 56.0
-margin_bottom = 56.0
-texture_normal = ExtResource( 4 )
-expand = true
-
-[node name="Top UI" type="Control" parent="Player/Camera_Holder/Camera/FullScreen"]
-anchor_right = 1.0
-margin_bottom = 55.0
-script = ExtResource( 27 )
-
-[node name="heart1" type="TextureRect" parent="Player/Camera_Holder/Camera/FullScreen/Top UI"]
-margin_left = 18.0
-margin_top = 15.0
-margin_right = 66.0
-margin_bottom = 63.0
-texture = ExtResource( 15 )
-expand = true
-
-[node name="heart2" type="TextureRect" parent="Player/Camera_Holder/Camera/FullScreen/Top UI"]
-margin_left = 69.0
-margin_top = 15.0
-margin_right = 117.0
-margin_bottom = 63.0
-rect_pivot_offset = Vector2( -399, 211 )
-texture = ExtResource( 15 )
-expand = true
-
-[node name="heart3" type="TextureRect" parent="Player/Camera_Holder/Camera/FullScreen/Top UI"]
-margin_left = 119.0
-margin_top = 15.0
-margin_right = 167.0
-margin_bottom = 63.0
-rect_pivot_offset = Vector2( -399, 211 )
-texture = ExtResource( 15 )
-expand = true
-
-[node name="heart4" type="TextureRect" parent="Player/Camera_Holder/Camera/FullScreen/Top UI"]
-margin_left = 169.0
-margin_top = 15.0
-margin_right = 217.0
-margin_bottom = 63.0
-rect_pivot_offset = Vector2( -399, 211 )
-texture = ExtResource( 15 )
-expand = true
-
-[node name="heart1-disabled" type="TextureRect" parent="Player/Camera_Holder/Camera/FullScreen/Top UI"]
-margin_left = 18.0
-margin_top = 15.0
-margin_right = 66.0
-margin_bottom = 63.0
-texture = ExtResource( 26 )
-expand = true
-
-[node name="heart2-disabled" type="TextureRect" parent="Player/Camera_Holder/Camera/FullScreen/Top UI"]
-margin_left = 69.0
-margin_top = 15.0
-margin_right = 117.0
-margin_bottom = 63.0
-rect_pivot_offset = Vector2( -399, 211 )
-texture = ExtResource( 26 )
-expand = true
-
-[node name="heart3-disabled" type="TextureRect" parent="Player/Camera_Holder/Camera/FullScreen/Top UI"]
-margin_left = 119.0
-margin_top = 15.0
-margin_right = 167.0
-margin_bottom = 63.0
-rect_pivot_offset = Vector2( -399, 211 )
-texture = ExtResource( 26 )
-expand = true
-
-[node name="heart4-disabled" type="TextureRect" parent="Player/Camera_Holder/Camera/FullScreen/Top UI"]
-margin_left = 169.0
-margin_top = 15.0
-margin_right = 217.0
-margin_bottom = 63.0
-rect_pivot_offset = Vector2( -399, 211 )
-texture = ExtResource( 26 )
-expand = true
-
-[node name="shield1" type="TextureRect" parent="Player/Camera_Holder/Camera/FullScreen/Top UI"]
-margin_left = 217.0
-margin_top = 14.0
-margin_right = 265.0
-margin_bottom = 62.0
-rect_pivot_offset = Vector2( -399, 211 )
-texture = ExtResource( 25 )
-expand = true
+cull_mask = 253
 
 [node name="MeshInstance" type="MeshInstance" parent="Player"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1, 0 )
@@ -2952,12 +2658,210 @@ script = ExtResource( 21 )
 
 [node name="AOE_Attack_Particles" type="Particles" parent="Player"]
 
-[node name="Viewport" type="Viewport" parent="Player"]
-size = Vector2( 55, 55 )
-transparent_bg = true
+[node name="CanvasLayer" type="CanvasLayer" parent="Player"]
 
-[node name="movement-die" parent="Player/Viewport" instance=ExtResource( 16 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.04158, 0 )
+[node name="FullScreen" type="Control" parent="Player/CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Turn" type="Label" parent="Player/CanvasLayer/FullScreen"]
+anchor_left = 0.5
+anchor_top = 0.05
+anchor_right = 0.5
+anchor_bottom = 0.05
+margin_left = -42.5
+margin_right = 42.5
+margin_bottom = 14.0
+
+[node name="Bottom UI" type="Control" parent="Player/CanvasLayer/FullScreen"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -145.0
+
+[node name="ColorRect" type="ColorRect" parent="Player/CanvasLayer/FullScreen/Bottom UI"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.109804, 0.109804, 0.109804, 0.780392 )
+
+[node name="MovementGrid" type="GridContainer" parent="Player/CanvasLayer/FullScreen/Bottom UI"]
+margin_left = 109.0
+margin_top = 13.0
+margin_right = 379.0
+margin_bottom = 130.0
+custom_constants/vseparation = 7
+custom_constants/hseparation = 7
+columns = 4
+
+[node name="Die_Spinner" parent="Player/CanvasLayer/FullScreen/Bottom UI/MovementGrid" instance=ExtResource( 2 )]
+diceModel = ExtResource( 4 )
+
+[node name="Die_Spinner2" parent="Player/CanvasLayer/FullScreen/Bottom UI/MovementGrid" instance=ExtResource( 2 )]
+margin_left = 62.0
+margin_right = 117.0
+diceModel = ExtResource( 4 )
+
+[node name="Die_Spinner3" parent="Player/CanvasLayer/FullScreen/Bottom UI/MovementGrid" instance=ExtResource( 2 )]
+margin_left = 124.0
+margin_right = 179.0
+diceModel = ExtResource( 4 )
+
+[node name="Die_Spinner4" parent="Player/CanvasLayer/FullScreen/Bottom UI/MovementGrid" instance=ExtResource( 2 )]
+margin_left = 186.0
+margin_right = 241.0
+diceModel = ExtResource( 4 )
+
+[node name="Die_Spinner5" parent="Player/CanvasLayer/FullScreen/Bottom UI/MovementGrid" instance=ExtResource( 2 )]
+margin_top = 62.0
+margin_bottom = 117.0
+diceModel = ExtResource( 4 )
+
+[node name="Die_Spinner6" parent="Player/CanvasLayer/FullScreen/Bottom UI/MovementGrid" instance=ExtResource( 2 )]
+margin_left = 62.0
+margin_top = 62.0
+margin_right = 117.0
+margin_bottom = 117.0
+diceModel = ExtResource( 4 )
+
+[node name="Die_Spinner7" parent="Player/CanvasLayer/FullScreen/Bottom UI/MovementGrid" instance=ExtResource( 2 )]
+margin_left = 124.0
+margin_top = 62.0
+margin_right = 179.0
+margin_bottom = 117.0
+diceModel = ExtResource( 4 )
+
+[node name="Die_Spinner8" parent="Player/CanvasLayer/FullScreen/Bottom UI/MovementGrid" instance=ExtResource( 2 )]
+margin_left = 186.0
+margin_top = 62.0
+margin_right = 241.0
+margin_bottom = 117.0
+diceModel = ExtResource( 4 )
+
+[node name="end_turn" type="TextureButton" parent="Player/CanvasLayer/FullScreen/Bottom UI"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -96.0
+margin_top = 45.0
+margin_right = 96.0
+margin_bottom = 100.0
+texture_normal = SubResource( 26 )
+expand = true
+
+[node name="move_reroll" type="TextureButton" parent="Player/CanvasLayer/FullScreen/Bottom UI"]
+margin_left = 31.0
+margin_top = 44.0
+margin_right = 86.0
+margin_bottom = 99.0
+rect_pivot_offset = Vector2( 28, 28 )
+texture_normal = ExtResource( 3 )
+expand = true
+script = ExtResource( 6 )
+
+[node name="action_heal" type="TextureButton" parent="Player/CanvasLayer/FullScreen/Bottom UI"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -106.0
+margin_top = 43.0
+margin_right = -51.0
+margin_bottom = 98.0
+rect_pivot_offset = Vector2( 28, 28 )
+texture_normal = SubResource( 32 )
+expand = true
+
+[node name="action_shield" type="TextureButton" parent="Player/CanvasLayer/FullScreen/Bottom UI"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -168.0
+margin_top = 43.0
+margin_right = -113.0
+margin_bottom = 98.0
+rect_pivot_offset = Vector2( 28, 28 )
+texture_normal = SubResource( 31 )
+expand = true
+
+[node name="Top UI" type="Control" parent="Player/CanvasLayer/FullScreen"]
+anchor_right = 1.0
+margin_bottom = 55.0
+script = ExtResource( 27 )
+
+[node name="heart1" type="TextureRect" parent="Player/CanvasLayer/FullScreen/Top UI"]
+margin_left = 18.0
+margin_top = 15.0
+margin_right = 66.0
+margin_bottom = 63.0
+texture = ExtResource( 15 )
+expand = true
+
+[node name="heart2" type="TextureRect" parent="Player/CanvasLayer/FullScreen/Top UI"]
+margin_left = 69.0
+margin_top = 15.0
+margin_right = 117.0
+margin_bottom = 63.0
+rect_pivot_offset = Vector2( -399, 211 )
+texture = ExtResource( 15 )
+expand = true
+
+[node name="heart3" type="TextureRect" parent="Player/CanvasLayer/FullScreen/Top UI"]
+margin_left = 119.0
+margin_top = 15.0
+margin_right = 167.0
+margin_bottom = 63.0
+rect_pivot_offset = Vector2( -399, 211 )
+texture = ExtResource( 15 )
+expand = true
+
+[node name="heart4" type="TextureRect" parent="Player/CanvasLayer/FullScreen/Top UI"]
+margin_left = 169.0
+margin_top = 15.0
+margin_right = 217.0
+margin_bottom = 63.0
+rect_pivot_offset = Vector2( -399, 211 )
+texture = ExtResource( 15 )
+expand = true
+
+[node name="heart1-disabled" type="TextureRect" parent="Player/CanvasLayer/FullScreen/Top UI"]
+margin_left = 18.0
+margin_top = 15.0
+margin_right = 66.0
+margin_bottom = 63.0
+texture = ExtResource( 26 )
+expand = true
+
+[node name="heart2-disabled" type="TextureRect" parent="Player/CanvasLayer/FullScreen/Top UI"]
+margin_left = 69.0
+margin_top = 15.0
+margin_right = 117.0
+margin_bottom = 63.0
+rect_pivot_offset = Vector2( -399, 211 )
+texture = ExtResource( 26 )
+expand = true
+
+[node name="heart3-disabled" type="TextureRect" parent="Player/CanvasLayer/FullScreen/Top UI"]
+margin_left = 119.0
+margin_top = 15.0
+margin_right = 167.0
+margin_bottom = 63.0
+rect_pivot_offset = Vector2( -399, 211 )
+texture = ExtResource( 26 )
+expand = true
+
+[node name="heart4-disabled" type="TextureRect" parent="Player/CanvasLayer/FullScreen/Top UI"]
+margin_left = 169.0
+margin_top = 15.0
+margin_right = 217.0
+margin_bottom = 63.0
+rect_pivot_offset = Vector2( -399, 211 )
+texture = ExtResource( 26 )
+expand = true
+
+[node name="shield1" type="TextureRect" parent="Player/CanvasLayer/FullScreen/Top UI"]
+margin_left = 217.0
+margin_top = 14.0
+margin_right = 265.0
+margin_bottom = 62.0
+rect_pivot_offset = Vector2( -399, 211 )
+texture = ExtResource( 25 )
+expand = true
 
 [node name="ActionLock" type="Timer" parent="Player"]
 wait_time = 1.5
@@ -2984,24 +2888,8 @@ debug_shape_thickness = 5
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 shape = SubResource( 44 )
 
-[connection signal="pressed" from="Player/Camera_Holder/Camera/FullScreen/Bottom_Panel/move_up" to="Player" method="_on_up_pressed"]
-[connection signal="pressed" from="Player/Camera_Holder/Camera/FullScreen/Bottom_Panel/move_left" to="Player" method="_on_left_pressed"]
-[connection signal="pressed" from="Player/Camera_Holder/Camera/FullScreen/Bottom_Panel/move_down" to="Player" method="_on_down_pressed"]
-[connection signal="pressed" from="Player/Camera_Holder/Camera/FullScreen/Bottom_Panel/move_right" to="Player" method="_on_right_pressed"]
-[connection signal="pressed" from="Player/Camera_Holder/Camera/FullScreen/Bottom_Panel/move_double_up" to="Player" method="_on_double_up_pressed"]
-[connection signal="pressed" from="Player/Camera_Holder/Camera/FullScreen/Bottom_Panel/move_double_left" to="Player" method="_on_double_left_pressed"]
-[connection signal="pressed" from="Player/Camera_Holder/Camera/FullScreen/Bottom_Panel/move_double_down" to="Player" method="_on_double_down_pressed"]
-[connection signal="pressed" from="Player/Camera_Holder/Camera/FullScreen/Bottom_Panel/move_double_right" to="Player" method="_on_double_right_pressed"]
-[connection signal="pressed" from="Player/Camera_Holder/Camera/FullScreen/Bottom_Panel/action_heal" to="Player" method="_on_action_heal_pressed"]
-[connection signal="pressed" from="Player/Camera_Holder/Camera/FullScreen/Bottom_Panel/action_shield" to="Player" method="_on_action_shield_pressed"]
-[connection signal="pressed" from="Player/Camera_Holder/Camera/FullScreen/Bottom_Panel/action_light_attack" to="Player" method="_on_action_light_attack_pressed"]
-[connection signal="pressed" from="Player/Camera_Holder/Camera/FullScreen/Bottom_Panel/action_area_attack" to="Player" method="_on_action_area_attack_pressed"]
-[connection signal="pressed" from="Player/Camera_Holder/Camera/FullScreen/Bottom_Panel/action_range_attack" to="Player" method="_on_action_range_attack_pressed"]
-[connection signal="pressed" from="Player/Camera_Holder/Camera/FullScreen/Bottom UI/end_turn" to="Player" method="_on_end_turn_pressed"]
-[connection signal="pressed" from="Player/Camera_Holder/Camera/FullScreen/Bottom UI/move_up" to="Player" method="_on_up_pressed"]
-[connection signal="pressed" from="Player/Camera_Holder/Camera/FullScreen/Bottom UI/move_left" to="Player" method="_on_left_pressed"]
-[connection signal="pressed" from="Player/Camera_Holder/Camera/FullScreen/Bottom UI/move_right" to="Player" method="_on_right_pressed"]
-[connection signal="pressed" from="Player/Camera_Holder/Camera/FullScreen/Bottom UI/action_heal" to="Player" method="_on_action_heal_pressed"]
-[connection signal="pressed" from="Player/Camera_Holder/Camera/FullScreen/Bottom UI/action_shield" to="Player" method="_on_action_shield_pressed"]
-[connection signal="pressed" from="Player/Camera_Holder/Camera/FullScreen/Bottom UI/Control/empty" to="Player/Viewport/movement-die" method="on_click"]
+[connection signal="pressed" from="Player/CanvasLayer/FullScreen/Bottom UI/end_turn" to="Player" method="_on_end_turn_pressed"]
+[connection signal="pressed" from="Player/CanvasLayer/FullScreen/Bottom UI/move_reroll" to="Player/CanvasLayer/FullScreen/Bottom UI/move_reroll" method="_on_move_reroll_pressed"]
+[connection signal="pressed" from="Player/CanvasLayer/FullScreen/Bottom UI/action_heal" to="Player" method="_on_action_heal_pressed"]
+[connection signal="pressed" from="Player/CanvasLayer/FullScreen/Bottom UI/action_shield" to="Player" method="_on_action_shield_pressed"]
 [connection signal="timeout" from="Player/ActionLock" to="Player" method="_on_ActionLock_timeout"]
