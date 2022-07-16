@@ -54,7 +54,7 @@ public class Player : RigidBody
 			}
 		}
 		
-		if (autoload.isPlayerTurn && remainingActions == 0 && remainingMoves == 0) {
+		if (autoload.isPlayerTurn && !actionLock && remainingActions == 0 && remainingMoves == 0) {
 			autoload.finishPlayerTurn();
 		}
 	}
@@ -119,47 +119,81 @@ public class Player : RigidBody
 		handle_move(new Vector3(2 * gridSize, 0, 0));
 	}
 	
+	private void handle_action(float waitTime = 1.5F)
+	{
+		Timer actionTimer = GetNode<Timer>("ActionLock");
+		actionLock = true;
+		actionTimer.WaitTime = waitTime;
+		actionTimer.Start();
+	}
+	
 	private void _on_action_heal_pressed()
 	{
 		if (autoload.isPlayerTurn && !moveLock && !actionLock && remainingActions > 0) {
 			autoload.playerHealth = Math.Min(maxHealth, autoload.playerHealth + 1);
 			GetNode<Particles>("Health_Particles").Emitting = true;
+			handle_action();
 			remainingActions --;
 		}
 	}
-
 
 	private void _on_action_shield_pressed()
 	{
 		if (autoload.isPlayerTurn && !moveLock && !actionLock && remainingActions > 0) {
 			autoload.playerShield ++;
 			GetNode<Particles>("Shield_Particles").Emitting = true;
+			handle_action();
 			remainingActions --;
 		}
 	}
-
 
 	private void _on_action_light_attack_pressed()
 	{
 		if (autoload.isPlayerTurn && !moveLock && !actionLock && remainingActions > 0) {
+			handle_action();
 			remainingActions --;
 			return;
 		}
 	}
-
 
 	private void _on_action_area_attack_pressed()
 	{
 		if (autoload.isPlayerTurn && !moveLock && !actionLock && remainingActions > 0) {
+			handle_action();
 			remainingActions --;
 			return;
 		}
 	}
 
-
 	private void _on_action_range_attack_pressed()
 	{
 		if (autoload.isPlayerTurn && !moveLock && !actionLock && remainingActions > 0) {
+			Range_Attack_Particles fireBall = GetNode<Range_Attack_Particles>("Range_Attack_Particles");
+			
+			Godot.Collections.Array enemies = GetTree().GetNodesInGroup("enemy");
+			
+			if (enemies.Count > 0) {
+				Enemy closestEnemy = (Enemy) enemies[0];
+				float closestDist = Translation.DistanceSquaredTo(closestEnemy.Translation);
+				
+				foreach (Enemy e in enemies)
+				{
+					if (!e.isDead) {
+						float enemDist = Translation.DistanceSquaredTo(e.Translation);
+						if (enemDist < closestDist) {
+							closestEnemy = e;
+							closestDist = enemDist;
+						}
+					}
+				}
+
+				if (closestDist <= 36) {
+					fireBall.castTo(new Vector3(closestEnemy.Translation.x - Translation.x, 2, closestEnemy.Translation.z - Translation.z));
+					closestEnemy.damage(1);
+				}
+			}
+			
+			handle_action();
 			remainingActions --;
 			return;
 		}
@@ -170,5 +204,10 @@ public class Player : RigidBody
 		autoload.finishPlayerTurn();
 		remainingActions = 0;
 		remainingMoves = 0;
+	}
+	
+	private void _on_ActionLock_timeout()
+	{
+		actionLock = false;
 	}
 }

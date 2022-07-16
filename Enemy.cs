@@ -17,6 +17,9 @@ public class Enemy : RigidBody
 	private bool actionLock = false;
 	
 	private Random rnd = new Random();
+	
+	private int health;
+	public bool isDead = false;
 
 	[Export]
 	private int maxHealth = 1;
@@ -41,11 +44,13 @@ public class Enemy : RigidBody
 		
 		remainingActions = defaultActionsPerTurn;
 		remainingMoves = defaultMovesPerTurn;
+		
+		health = maxHealth;
 	}
 
 	public override void _Process(float delta)
 	{
-		if(isEnemyTurn) {
+		if(isEnemyTurn && !isDead) {
 			if (moveLock) {
 				Translation = Translation.LinearInterpolate(targetPos, slideSpeed * delta);
 
@@ -67,6 +72,21 @@ public class Enemy : RigidBody
 					isEnemyTurn = false;
 				}
 			}
+		}
+	}
+	
+	public void damage(int hits)
+	{
+		health -= hits;
+		
+		if (health <= 0) {
+			isDead = true;
+			
+			GetNode<Spatial>("skeleton").Visible = false;
+			GetNode<Spatial>("gravestone").Visible = true;
+			
+//			Sleeping = false;
+//			ApplyImpulse(Vector3.Forward, new Vector3(0, 2, 0));
 		}
 	}
 
