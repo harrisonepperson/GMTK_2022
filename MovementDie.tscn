@@ -1,0 +1,51 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Assets/Models/Meshes/die-background.tres" type="ArrayMesh" id=1]
+[ext_resource path="res://Assets/Figma Exports/inner-icon-movement.png" type="Texture" id=2]
+
+[sub_resource type="SpatialMaterial" id=1]
+flags_unshaded = true
+
+[node name="MovementDie" type="MeshInstance"]
+transform = Transform( 1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0, 0 )
+layers = 0
+cast_shadow = 0
+mesh = ExtResource( 1 )
+skeleton = NodePath("../..")
+material/0 = SubResource( 1 )
+
+[node name="side-#1" type="Sprite3D" parent="."]
+transform = Transform( 1.09091, 0, 1.90741e-07, 0, 1.09091, 0, -1.90741e-07, 0, 1.09091, 1.7564e-07, 0, 1.00818 )
+layers = 0
+double_sided = false
+texture = ExtResource( 2 )
+
+[node name="side-#2" type="Sprite3D" parent="."]
+transform = Transform( -1.09091, 9.537e-08, 4.16877e-15, 0, -4.76852e-08, 1.09091, 9.537e-08, 1.09091, 4.76852e-08, 0, 1.00909, 0 )
+layers = 0
+double_sided = false
+texture = ExtResource( 2 )
+
+[node name="side-#3" type="Sprite3D" parent="."]
+transform = Transform( 4.76852e-08, -1.09091, -9.537e-08, -1.09091, -4.76852e-08, 0, -4.16877e-15, 9.537e-08, -1.09091, 0, 0, -1.00091 )
+layers = 0
+double_sided = false
+texture = ExtResource( 2 )
+
+[node name="side-#4" type="Sprite3D" parent="."]
+transform = Transform( -4.76852e-08, 1.09091, -4.76852e-08, 0, -4.76852e-08, -1.09091, -1.09091, -4.76852e-08, 2.08438e-15, 0, -1.00909, 0 )
+layers = 0
+double_sided = false
+texture = ExtResource( 2 )
+
+[node name="side-#5" type="Sprite3D" parent="."]
+transform = Transform( 8.23614e-08, 0, -1.09091, 0, 1.09091, 0, 1.09091, 0, 8.23614e-08, -1.00909, 0, 0.00818182 )
+layers = 0
+double_sided = false
+texture = ExtResource( 2 )
+
+[node name="side-#6" type="Sprite3D" parent="."]
+transform = Transform( -4.76852e-08, 0, 1.09091, 0, 1.09091, 0, -1.09091, 0, -4.76852e-08, 1.00091, 0, 0 )
+layers = 0
+double_sided = false
+texture = ExtResource( 2 )

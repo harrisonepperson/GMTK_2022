@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=2]
+
+[sub_resource type="PrismMesh" id=1]
+
+[sub_resource type="SpatialMaterial" id=2]
+albedo_color = Color( 0, 0.0392157, 1, 1 )
+
+[node name="ActionDie" type="MeshInstance"]
+transform = Transform( 0.89627, 0, -0.443509, -0.243988, 0.835078, -0.493066, 0.370365, 0.550131, 0.748456, 0, 0, 0 )
+layers = 524288
+cast_shadow = 0
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )

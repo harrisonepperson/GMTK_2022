@@ -112,7 +112,7 @@ public class Dice : Spatial
 
 			// 	global_transform = Transform(Basis(wrotation), global_transform.origin)
 
-			var rotation_speed = 1 * delta;
+			var rotation_speed = 3 * delta;
 
 			Vector3 targetRotation;
 
