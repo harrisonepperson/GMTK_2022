@@ -164,4 +164,11 @@ public class Player : RigidBody
 			return;
 		}
 	}
+	
+	private void _on_end_turn_pressed()
+	{
+		autoload.finishPlayerTurn();
+		remainingActions = 0;
+		remainingMoves = 0;
+	}
 }

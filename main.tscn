@@ -2761,7 +2761,7 @@ custom_fonts/font = ExtResource( 15 )
 text = "Dice left: 3"
 align = 1
 
-[node name="action" type="TextureButton" parent="Player/Camera_Holder/Camera/FullScreen/UI"]
+[node name="action_heal" type="TextureButton" parent="Player/Camera_Holder/Camera/FullScreen/UI"]
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -106.0
@@ -2772,7 +2772,7 @@ rect_pivot_offset = Vector2( 28, 28 )
 texture_normal = SubResource( 32 )
 expand = true
 
-[node name="action2" type="TextureButton" parent="Player/Camera_Holder/Camera/FullScreen/UI"]
+[node name="action_shield" type="TextureButton" parent="Player/Camera_Holder/Camera/FullScreen/UI"]
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -168.0
@@ -2870,10 +2870,10 @@ shape = SubResource( 36 )
 [connection signal="pressed" from="Player/Camera_Holder/Camera/FullScreen/Bottom_Panel/action_light_attack" to="Player" method="_on_action_light_attack_pressed"]
 [connection signal="pressed" from="Player/Camera_Holder/Camera/FullScreen/Bottom_Panel/action_area_attack" to="Player" method="_on_action_area_attack_pressed"]
 [connection signal="pressed" from="Player/Camera_Holder/Camera/FullScreen/Bottom_Panel/action_range_attack" to="Player" method="_on_action_range_attack_pressed"]
-[connection signal="pressed" from="Player/Camera_Holder/Camera/FullScreen/UI/end_turn" to="Player" method="_on_up_pressed"]
+[connection signal="pressed" from="Player/Camera_Holder/Camera/FullScreen/UI/end_turn" to="Player" method="_on_end_turn_pressed"]
 [connection signal="pressed" from="Player/Camera_Holder/Camera/FullScreen/UI/move_up" to="Player" method="_on_up_pressed"]
 [connection signal="pressed" from="Player/Camera_Holder/Camera/FullScreen/UI/move_left" to="Player" method="_on_left_pressed"]
 [connection signal="pressed" from="Player/Camera_Holder/Camera/FullScreen/UI/move_right" to="Player" method="_on_right_pressed"]
-[connection signal="pressed" from="Player/Camera_Holder/Camera/FullScreen/UI/action" to="Player" method="_on_right_pressed"]
-[connection signal="pressed" from="Player/Camera_Holder/Camera/FullScreen/UI/action2" to="Player" method="_on_right_pressed"]
+[connection signal="pressed" from="Player/Camera_Holder/Camera/FullScreen/UI/action_heal" to="Player" method="_on_action_heal_pressed"]
+[connection signal="pressed" from="Player/Camera_Holder/Camera/FullScreen/UI/action_shield" to="Player" method="_on_action_shield_pressed"]
 [connection signal="pressed" from="Player/Camera_Holder/Camera/FullScreen/UI/Control/empty" to="Player" method="_on_left_pressed"]
