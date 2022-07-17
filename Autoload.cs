@@ -37,7 +37,6 @@ public class Autoload : Node
 			
 			if (!enemyStillPlaying)
 			{
-				isPlayerTurn = true;
 				GetTree().CallGroup("player", "startTurn");
 			}
 		}

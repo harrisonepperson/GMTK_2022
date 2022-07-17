@@ -36,8 +36,12 @@ public class Enemy : RigidBody
 	[Export]
 	private int sightDistance = 10;
 
+	private Player player;
+
 	public override void _Ready()
 	{
+		player = GetNode<Player>("/root/Main/Player");
+
 		autoload = GetNode<Autoload>("/root/Autoload");
 		gridSize = autoload.gridSize;
 		targetPos = Translation;
@@ -66,7 +70,6 @@ public class Enemy : RigidBody
 
 			if (!moveLock && !actionLock) {
 				if (remainingMoves + remainingActions > 0) {
-					GD.Print(targetPos);
 					handleTurn();
 				} else {
 					isEnemyTurn = false;
@@ -100,7 +103,8 @@ public class Enemy : RigidBody
 	
 	public void handleAttack()
 	{
-//		GD.Print("Handling Enemy Attack");
+		player.damage(1);
+
 		actionLock = true;
 		remainingActions --;
 	}
@@ -116,7 +120,6 @@ public class Enemy : RigidBody
 	public void handleTurn()
 	{
 //		GD.Print("Handling Enemy Turn");
-		RigidBody player = GetNode<RigidBody>("/root/Main/Player");
 		Vector3 playerPos = player.Translation;
 		Vector2 posDelta = new Vector2(Translation.x - playerPos.x, Translation.z - playerPos.z);
 		Vector2 sitePath = posDelta.Normalized();
@@ -130,7 +133,7 @@ public class Enemy : RigidBody
 			Node collision = (Node) eyes.GetCollider();
 			if (collision.IsInGroup("player"))
 			{
-				GD.Print("See player", posDelta);
+//				GD.Print("See player", posDelta);
 				isEnemyTurn = true;
 
 				if (remainingMoves > 0) {

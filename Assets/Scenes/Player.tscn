@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=2]
+[gd_scene load_steps=63 format=2]
 
 [ext_resource path="res://move_reroll.cs" type="Script" id=1]
 [ext_resource path="res://Range_Attack_Particles.cs" type="Script" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://Assets/Figma Exports/health-full.png" type="Texture" id=12]
 [ext_resource path="res://Assets/Figma Exports/active-shield.png" type="Texture" id=13]
 [ext_resource path="res://Assets/Figma Exports/health-empty.png" type="Texture" id=14]
+[ext_resource path="res://Assets/Models/gravestone.glb" type="PackedScene" id=15]
 [ext_resource path="res://Assets/Scenes/GreenButton.cs" type="Script" id=16]
 [ext_resource path="res://Assets/Figma Exports/empty-green-button-hover.png" type="Texture" id=17]
 [ext_resource path="res://Assets/Figma Exports/sword.png" type="Texture" id=18]
@@ -299,6 +300,9 @@ material/0 = null
 
 [node name="knight" parent="." instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0 )
+
+[node name="gravestone" parent="." instance=ExtResource( 15 )]
+visible = false
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1, 0 )
@@ -664,6 +668,10 @@ custom_fonts/font = SubResource( 63 )
 text = "next"
 align = 1
 
+[node name="ActionLock" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
 [connection signal="pressed" from="CanvasLayer/FullScreen/Bottom UI/end_turn" to="." method="_on_end_turn_pressed"]
 [connection signal="pressed" from="CanvasLayer/FullScreen/Bottom UI/move_reroll" to="CanvasLayer/FullScreen/Bottom UI/move_reroll" method="_on_move_reroll_pressed"]
 [connection signal="pressed" from="CanvasLayer/FullScreen/Bottom UI/action_heal" to="." method="_on_action_heal_pressed"]
@@ -672,3 +680,4 @@ align = 1
 [connection signal="mouse_entered" from="CanvasLayer/FullScreen/Level Complete UI/Control/GreenButton" to="CanvasLayer/FullScreen/Level Complete UI/Control/GreenButton" method="_on_GreenButton_mouse_entered"]
 [connection signal="mouse_exited" from="CanvasLayer/FullScreen/Level Complete UI/Control/GreenButton" to="CanvasLayer/FullScreen/Level Complete UI/Control/GreenButton" method="_on_GreenButton_mouse_exited"]
 [connection signal="pressed" from="CanvasLayer/FullScreen/Level Complete UI/Control/GreenButton" to="CanvasLayer/FullScreen/Level Complete UI/Control/GreenButton" method="_on_GreenButton_pressed"]
+[connection signal="timeout" from="ActionLock" to="." method="_on_ActionLock_timeout"]
