@@ -25,6 +25,15 @@ public class Player : RigidBody
 
 	[Export]
 	private int defaultMovesPerTurn = 2;
+	
+	[Export]
+	private int lightDamage = 2;
+	
+	[Export]
+	private int aoeDamage = 1;
+	
+	[Export]
+	private int rangeDamage = 1;
 
 	public override void _Ready()
 	{
@@ -161,6 +170,36 @@ public class Player : RigidBody
 	{
 		if (autoload.isPlayerTurn && !moveLock && !actionLock && remainingActions > 0)
 		{
+			Particles ball = GetNode<Particles>("Light_Attack_Particles");
+
+			Godot.Collections.Array enemies = GetTree().GetNodesInGroup("enemy");
+
+			if (enemies.Count > 0)
+			{
+				Enemy closestEnemy = (Enemy)enemies[0];
+				float closestDist = Translation.DistanceSquaredTo(closestEnemy.Translation);
+
+				foreach (Enemy e in enemies)
+				{
+					if (!e.isDead)
+					{
+						float enemDist = Translation.DistanceSquaredTo(e.Translation);
+						if (enemDist < closestDist)
+						{
+							closestEnemy = e;
+							closestDist = enemDist;
+						}
+					}
+				}
+
+				if (closestDist <= 6)
+				{
+					ball.Translation = new Vector3(closestEnemy.Translation.x - Translation.x, 2, closestEnemy.Translation.z - Translation.z);
+					ball.Emitting = true;
+					closestEnemy.damage(lightDamage);
+				}
+			}
+			
 			handle_action();
 			remainingActions--;
 			return;
@@ -185,7 +224,7 @@ public class Player : RigidBody
 						
 						if (dist <= 6)
 						{
-							e.damage(1);
+							e.damage(aoeDamage);
 						}
 					}
 				}
@@ -226,7 +265,7 @@ public class Player : RigidBody
 				if (closestDist <= 36)
 				{
 					fireBall.castTo(new Vector3(closestEnemy.Translation.x - Translation.x, 2, closestEnemy.Translation.z - Translation.z));
-					closestEnemy.damage(1);
+					closestEnemy.damage(rangeDamage);
 				}
 			}
 

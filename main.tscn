@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=2]
+[gd_scene load_steps=61 format=2]
 
 [ext_resource path="res://Player.cs" type="Script" id=1]
 [ext_resource path="res://Assets/Scenes/Die_Spinner.tscn" type="PackedScene" id=2]
@@ -128,6 +128,48 @@ emission_on_uv2 = false
 
 [sub_resource type="QuadMesh" id=25]
 material = SubResource( 24 )
+
+[sub_resource type="SpatialMaterial" id=54]
+flags_transparent = true
+vertex_color_use_as_albedo = true
+params_billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id=55]
+offsets = PoolRealArray( 0, 0.221939, 0.377551, 0.619898, 0.813776, 1 )
+colors = PoolColorArray( 1, 1, 1, 0, 0.660156, 0.154724, 0, 1, 1, 0.447059, 0, 1, 0.0666667, 0.0666667, 0.0666667, 1, 0.0666667, 0.0666667, 0.0666667, 1, 0.211765, 0.211765, 0.211765, 0 )
+
+[sub_resource type="GradientTexture" id=56]
+gradient = SubResource( 55 )
+
+[sub_resource type="Curve" id=57]
+_data = [ Vector2( 0.0168675, 0 ), 0.0, 7.75505, 0, 0, Vector2( 0.428916, 1 ), 0.0725524, 0.0725524, 0, 0, Vector2( 1, 0 ), -3.64263, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=58]
+curve = SubResource( 57 )
+
+[sub_resource type="ParticlesMaterial" id=59]
+emission_shape = 5
+emission_ring_radius = 1.0
+emission_ring_inner_radius = 0.0
+emission_ring_height = 1.0
+emission_ring_axis = Vector3( 0, 1, 0 )
+direction = Vector3( 0, 1, 0 )
+gravity = Vector3( 0, 9.8, 0 )
+angular_velocity = 26.54
+angular_velocity_random = 0.59
+angle = 20.0
+angle_random = 1.0
+scale = 0.2
+scale_random = 0.07
+scale_curve = SubResource( 58 )
+color_ramp = SubResource( 56 )
+hue_variation = 0.01
+hue_variation_random = 0.32
+
+[sub_resource type="QuadMesh" id=60]
 
 [sub_resource type="Gradient" id=37]
 offsets = PoolRealArray( 0, 0.124224, 0.409938, 0.509317, 0.944099 )
@@ -2691,6 +2733,13 @@ process_material = SubResource( 22 )
 draw_pass_1 = SubResource( 25 )
 
 [node name="Light_Attack_Particles" type="Particles" parent="Player"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0.297673, 0 )
+material_override = SubResource( 54 )
+emitting = false
+amount = 300
+one_shot = true
+process_material = SubResource( 59 )
+draw_pass_1 = SubResource( 60 )
 
 [node name="Range_Attack_Particles" type="Particles" parent="Player"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
