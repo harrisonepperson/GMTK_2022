@@ -18,6 +18,19 @@ public class Autoload : Node
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		//music
+		ResourceLoader.Load("res://Assets/Sound Effects/music3.mp3");
+
+		//events		
+		ResourceLoader.Load("res://Assets/Sound Effects/level-complete2.wav");
+		ResourceLoader.Load("res://Assets/Sound Effects/lost2.wav");
+
+		//actions
+		ResourceLoader.Load("res://Assets/Sound Effects/light-attack.mp3");
+		ResourceLoader.Load("res://Assets/Sound Effects/heal.mp3");
+		ResourceLoader.Load("res://Assets/Sound Effects/aoe-attack.wav");
+		ResourceLoader.Load("res://Assets/Sound Effects/ranged-attack.wav");
+		ResourceLoader.Load("res://Assets/Sound Effects/shield.wav");
 	}
 
 	public override void _Process(float delta)

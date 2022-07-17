@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/shield.mp3-216785b4e25db4a5438e6d8473b1b1e2.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sound Effects/shield.mp3"
+dest_files=[ "res://.import/shield.mp3-216785b4e25db4a5438e6d8473b1b1e2.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
