@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=2]
+[gd_scene load_steps=68 format=2]
 
 [ext_resource path="res://move_reroll.cs" type="Script" id=1]
 [ext_resource path="res://Range_Attack_Particles.cs" type="Script" id=2]
@@ -19,12 +19,11 @@
 [ext_resource path="res://Assets/Figma Exports/empty-green-button-hover.png" type="Texture" id=17]
 [ext_resource path="res://Assets/Figma Exports/sword.png" type="Texture" id=18]
 [ext_resource path="res://Assets/Figma Exports/empty-green-button.png" type="Texture" id=19]
-[ext_resource path="res://Assets/Sound Effects/heal.mp3" type="AudioStream" id=20]
+[ext_resource path="res://Assets/Scenes/LevelsCleared.cs" type="Script" id=20]
 [ext_resource path="res://Assets/Sound Effects/shield.mp3" type="AudioStream" id=21]
 [ext_resource path="res://Assets/Sound Effects/ranged-attack.wav" type="AudioStream" id=22]
 [ext_resource path="res://Assets/Sound Effects/light-attack.mp3" type="AudioStream" id=23]
 [ext_resource path="res://Assets/Sound Effects/aoe-attack.wav" type="AudioStream" id=24]
-[ext_resource path="res://Assets/Scenes/LevelsCleared.cs" type="Script" id=20]
 
 [sub_resource type="CapsuleMesh" id=1]
 radius = 0.5
@@ -685,7 +684,6 @@ stream = ExtResource( 21 )
 bus = "SFX"
 
 [node name="HealSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 20 )
 bus = "SFX"
 
 [node name="LightAttackSound" type="AudioStreamPlayer" parent="."]
@@ -695,6 +693,7 @@ bus = "SFX"
 [node name="RangedAttackSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 22 )
 bus = "SFX"
+
 [node name="ActionLock" type="Timer" parent="."]
 wait_time = 1.5
 one_shot = true
