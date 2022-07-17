@@ -26,21 +26,21 @@ double_sided = false
 texture = ExtResource( 4 )
 
 [node name="side-#2" type="Sprite3D" parent="."]
-transform = Transform( -1.2, 1.04907e-07, 4.58565e-15, 0, -5.24537e-08, 1.2, 1.04907e-07, 1.2, 5.24537e-08, 0, 1.01, 0.027 )
+transform = Transform( 1.2, 0, 0, 0, -5.24537e-08, 1.2, 0, -1.2, -5.24537e-08, 0, 1.01, 0.027 )
 layers = 0
 cast_shadow = 0
 double_sided = false
 texture = ExtResource( 6 )
 
 [node name="side-#3" type="Sprite3D" parent="."]
-transform = Transform( 5.24537e-08, -1.2, -1.04907e-07, -1.2, -5.24537e-08, 0, -4.58565e-15, 1.04907e-07, -1.2, 0, 0, -1.01 )
+transform = Transform( 1.2, 1.04907e-07, 1.04907e-07, 1.04907e-07, -1.2, 0, 1.04907e-07, 9.17129e-15, -1.2, 0, 0, -1.01 )
 layers = 0
 cast_shadow = 0
 double_sided = false
 texture = ExtResource( 7 )
 
 [node name="side-#4" type="Sprite3D" parent="."]
-transform = Transform( -5.24537e-08, 1.2, -5.24537e-08, 0, -5.24537e-08, -1.2, -1.2, -5.24537e-08, 2.29282e-15, 0, -1.01, 0.027 )
+transform = Transform( 1.2, 0, 0, 0, -5.24537e-08, -1.2, 0, 1.2, -5.24537e-08, 0, -1.01, 0.027 )
 layers = 0
 cast_shadow = 0
 double_sided = false
