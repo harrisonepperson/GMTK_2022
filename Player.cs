@@ -43,6 +43,12 @@ public class Player : RigidBody
 
 	private Timer actionTimer;
 
+	AudioStreamPlayer lightAttackSound;
+	AudioStreamPlayer aoeAttackSound;
+	AudioStreamPlayer rangedAttackSound;
+	AudioStreamPlayer healSound;
+	AudioStreamPlayer shieldSound;
+
 	public override void _Ready()
 	{
 		GD.Load<PackedScene>(deathScreen);
@@ -54,6 +60,12 @@ public class Player : RigidBody
 
 		remainingActions = defaultActionsPerTurn;
 		remainingMoves = defaultMovesPerTurn;
+
+		lightAttackSound = GetNode<AudioStreamPlayer>("LightAttackSound");
+		aoeAttackSound = GetNode<AudioStreamPlayer>("AOEAttackSound");
+		rangedAttackSound = GetNode<AudioStreamPlayer>("RangedAttackSound");
+		healSound = GetNode<AudioStreamPlayer>("HealSound");
+		shieldSound = GetNode<AudioStreamPlayer>("ShieldSound");
 	}
 
 	public override void _Process(float delta)
@@ -200,6 +212,7 @@ public class Player : RigidBody
 	{
 		if (autoload.isPlayerTurn && !moveLock && !actionLock && remainingActions > 0)
 		{
+			healSound.Play();
 			autoload.playerHealth = Math.Min(maxHealth, autoload.playerHealth + 1);
 			GetNode<Particles>("Health_Particles").Emitting = true;
 			handle_action();
@@ -211,6 +224,7 @@ public class Player : RigidBody
 	{
 		if (autoload.isPlayerTurn && !moveLock && !actionLock && remainingActions > 0)
 		{
+			shieldSound.Play();
 			autoload.playerShield++;
 			GetNode<Particles>("Shield_Particles").Emitting = true;
 			handle_action();
@@ -222,6 +236,7 @@ public class Player : RigidBody
 	{
 		if (autoload.isPlayerTurn && !moveLock && !actionLock && remainingActions > 0)
 		{
+			lightAttackSound.Play();
 			Particles ball = GetNode<Particles>("Light_Attack_Particles");
 
 			Godot.Collections.Array enemies = GetTree().GetNodesInGroup("enemy");
@@ -262,6 +277,7 @@ public class Player : RigidBody
 	{
 		if (autoload.isPlayerTurn && !moveLock && !actionLock && remainingActions > 0)
 		{
+			aoeAttackSound.Play();
 			Particles aoe = GetNode<Particles>("AOE_Attack_Particles");
 
 			Godot.Collections.Array enemies = GetTree().GetNodesInGroup("enemy");
@@ -292,6 +308,7 @@ public class Player : RigidBody
 	{
 		if (autoload.isPlayerTurn && !moveLock && !actionLock && remainingActions > 0)
 		{
+			rangedAttackSound.Play();
 			Range_Attack_Particles fireBall = GetNode<Range_Attack_Particles>("Range_Attack_Particles");
 
 			Godot.Collections.Array enemies = GetTree().GetNodesInGroup("enemy");

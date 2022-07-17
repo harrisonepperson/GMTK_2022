@@ -11,5 +11,5 @@ dest_files=[ "res://.import/shield.mp3-216785b4e25db4a5438e6d8473b1b1e2.mp3str" 
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0
