@@ -10,6 +10,8 @@ extents = Vector3( 0.2, 1, 0.2 )
 [node name="Enemy" type="RigidBody" groups=["enemy"]]
 sleeping = true
 script = ExtResource( 3 )
+defaultMovesPerTurn = 3
+sightDistance = 20
 
 [node name="gravestone" parent="." instance=ExtResource( 2 )]
 visible = false

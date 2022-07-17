@@ -290,6 +290,7 @@ font_data = ExtResource( 4 )
 [node name="Player" type="RigidBody" groups=["player"]]
 sleeping = true
 script = ExtResource( 5 )
+defaultMovesPerTurn = 4
 
 [node name="Camera_Holder" type="Spatial" parent="."]
 transform = Transform( 0.707107, -0.415627, 0.572061, 0, 0.809017, 0.587785, -0.707107, -0.415627, 0.572061, 0, 1, 0 )

@@ -95,7 +95,6 @@ public class Enemy : RigidBody
 
 	public void handleMove(Vector2 offset)
 	{
-//		GD.Print("Handling Enemy Move");
 		targetPos = new Vector3(Translation.x + (offset.x * gridSize), Translation.y, Translation.z + (offset.y * gridSize));
 		moveLock = true;
 		remainingMoves --;
@@ -112,7 +111,6 @@ public class Enemy : RigidBody
 	public void startTurn()
 	{
 		if (!isDead) {
-			GD.Print("Starting enemy turn");
 			remainingActions = defaultActionsPerTurn;
 			remainingMoves = defaultMovesPerTurn;
 			isEnemyTurn = true;
@@ -130,15 +128,13 @@ public class Enemy : RigidBody
 		RayCast eyes = GetNode<RayCast>("Eyes");
 		eyes.CastTo = new Vector3(sitePath.x * -sightDistance, 1, sitePath.y * -sightDistance);
 		eyes.ForceRaycastUpdate();
-		
-		GD.Print(eyes.CastTo, " ", sitePath, " ", playerPos, " ", Translation);
 
 		if (eyes.IsColliding())
 		{
 			Node collision = (Node) eyes.GetCollider();
 			if (collision.IsInGroup("player"))
 			{
-//				GD.Print("See player", posDelta);
+				GD.Print("See player", posDelta);
 				// isEnemyTurn = true;
 
 				if (remainingMoves > 0) {
