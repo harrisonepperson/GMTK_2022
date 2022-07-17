@@ -15,11 +15,11 @@
 [ext_resource path="res://Assets/Figma Exports/active-shield.png" type="Texture" id=13]
 [ext_resource path="res://Assets/Figma Exports/health-empty.png" type="Texture" id=14]
 [ext_resource path="res://Assets/Models/gravestone.glb" type="PackedScene" id=15]
-[ext_resource path="res://Assets/Scenes/LevelsCleared.cs" type="Script" id=15]
 [ext_resource path="res://Assets/Scenes/GreenButton.cs" type="Script" id=16]
 [ext_resource path="res://Assets/Figma Exports/empty-green-button-hover.png" type="Texture" id=17]
 [ext_resource path="res://Assets/Figma Exports/sword.png" type="Texture" id=18]
 [ext_resource path="res://Assets/Figma Exports/empty-green-button.png" type="Texture" id=19]
+[ext_resource path="res://Assets/Scenes/LevelsCleared.cs" type="Script" id=20]
 
 [sub_resource type="CapsuleMesh" id=1]
 radius = 0.5
@@ -326,7 +326,7 @@ process_material = SubResource( 22 )
 draw_pass_1 = SubResource( 25 )
 
 [node name="Light_Attack_Particles" type="Particles" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0.297673, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.297673, 0 )
 material_override = SubResource( 54 )
 emitting = false
 amount = 300
@@ -627,7 +627,7 @@ custom_colors/font_color = Color( 1, 1, 1, 0.498039 )
 custom_fonts/font = SubResource( 61 )
 text = "Levels Passed: 1"
 align = 1
-script = ExtResource( 15 )
+script = ExtResource( 20 )
 
 [node name="Dungeon Cleared" type="Label" parent="CanvasLayer/FullScreen/Level Complete UI/Control"]
 margin_left = -215.0
@@ -644,7 +644,6 @@ margin_top = 36.0
 margin_right = 108.0
 margin_bottom = 119.0
 script = ExtResource( 16 )
-reloadCurrentScene = true
 
 [node name="bg" type="Sprite" parent="CanvasLayer/FullScreen/Level Complete UI/Control/GreenButton"]
 position = Vector2( 108, 42 )
