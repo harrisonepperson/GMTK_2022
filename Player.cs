@@ -71,24 +71,24 @@ public class Player : RigidBody
 	public override void _Process(float delta)
 	{
 
-
-		// if (!autoload.levelComplete)
-		// {
-		// 	Godot.Collections.Array enemies = GetTree().GetNodesInGroup("enemy");
-		// 	var textLevelComplete = true;
-		// 	foreach (Enemy e in enemies)
-		// 	{
-		// 		if (!e.isDead)
-		// 		{
-		// 			textLevelComplete = false;
-		// 		}
-		// 	}
-		// 	if (textLevelComplete)
-		// 	{
-		// 		autoload.levelComplete = true;
-		// 		//GetNode<Control>("CanvasLayer/FullScreen/Level Complete UI").Visible = true;
-		// 	}
-		// }
+		if (!autoload.levelComplete)
+		{
+			Godot.Collections.Array enemies = GetTree().GetNodesInGroup("enemy");
+			var textLevelComplete = true;
+			foreach (Enemy e in enemies)
+			{
+				if (!e.isDead)
+				{
+					textLevelComplete = false;
+				}
+			}
+			if (textLevelComplete)
+			{
+				autoload.levelComplete = true;
+				//GetNode<Control>("CanvasLayer/FullScreen/Level Complete UI").Visible = true;
+				//GetNode<Control>("CanvasLayer/FullScreen/Level Complete UI/LevelCompleteSound").Play();
+			}
+		}
 
 		Label turnLabel = GetNode<Label>("CanvasLayer/FullScreen/Turn");
 		if (autoload.isPlayerTurn)
