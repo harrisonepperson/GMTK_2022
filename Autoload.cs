@@ -38,6 +38,7 @@ public class Autoload : Node
 		playerHealth = 4;
 		playerShield = 0;
 		levelComplete = false;
+		score = 0;
 	}
 
 	public override void _Process(float delta)

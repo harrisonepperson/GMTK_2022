@@ -84,7 +84,8 @@ public class Player : RigidBody
 			if (textLevelComplete)
 			{
 				autoload.levelComplete = true;
-				//GetNode<Control>("CanvasLayer/FullScreen/Level Complete UI").Visible = true;
+				autoload.score++;
+				GetNode<Control>("CanvasLayer/FullScreen/Level Complete UI").Visible = true;
 			}
 		}
 

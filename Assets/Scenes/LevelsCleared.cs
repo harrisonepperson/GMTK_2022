@@ -3,7 +3,7 @@ using System;
 
 public class LevelsCleared : Label
 {
-	private int cachedScore = 0;
+	private int cachedScore = -1;
 	private Autoload autoload;
 
 	// Called when the node enters the scene tree for the first time.
