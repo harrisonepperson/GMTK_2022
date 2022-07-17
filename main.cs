@@ -123,6 +123,7 @@ public class main : Spatial
 						toPlace = floorScene;
 						break;
 					case 2: // Entrance
+						((RigidBody) GetNode("/root/Main/Player")).Translation = new Vector3(c * gridSize * roomSize, 0, r * gridSize * roomSize);
 						toPlace = entranceScene;
 						break;
 					case 3: // Exit

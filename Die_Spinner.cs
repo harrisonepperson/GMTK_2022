@@ -223,7 +223,7 @@ public class Die_Spinner : Control
 		int newSide = currentSide;
 		while (newSide == currentSide)
 		{
-			newSide = rnd.Next(1, 7);
+			newSide = rnd.Next(1, diceType == DieType.Action ? 7 : 4);
 		}
 
 		if (diceType == DieType.Action)
