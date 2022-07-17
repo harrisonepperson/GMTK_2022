@@ -8,14 +8,13 @@
 extents = Vector3( 0.2, 1, 0.2 )
 
 [node name="Enemy" type="RigidBody" groups=["enemy"]]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0 )
 sleeping = true
 script = ExtResource( 3 )
 
-[node name="gravestone" type="Spatial" parent="." instance=ExtResource( 2 )]
+[node name="gravestone" parent="." instance=ExtResource( 2 )]
 visible = false
 
-[node name="skeleton" type="Spatial" parent="." instance=ExtResource( 1 )]
+[node name="skeleton" parent="." instance=ExtResource( 1 )]
 
 [node name="Eyes" type="RayCast" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )

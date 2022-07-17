@@ -1,7 +1,6 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Assets/Scenes/Player.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Assets/Scenes/Enemy.tscn" type="PackedScene" id=2]
 [ext_resource path="res://main.cs" type="Script" id=9]
 [ext_resource path="res://Assets/Scenes/Entrance.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Assets/Scenes/Exit.tscn" type="PackedScene" id=11]
@@ -2448,8 +2447,6 @@ material/0 = SubResource( 9 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Floor"]
 shape = SubResource( 4 )
-
-[node name="Enemy" parent="." instance=ExtResource( 2 )]
 
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 66.2441, 0 )
