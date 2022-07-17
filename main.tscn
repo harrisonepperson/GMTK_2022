@@ -1,14 +1,12 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Assets/Scenes/Player.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Enemy.cs" type="Script" id=5]
+[ext_resource path="res://Assets/Scenes/Enemy.tscn" type="PackedScene" id=2]
 [ext_resource path="res://main.cs" type="Script" id=9]
 [ext_resource path="res://Assets/Scenes/Entrance.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Assets/Scenes/Exit.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Assets/Scenes/Floor.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Assets/Scenes/Empty.tscn" type="PackedScene" id=13]
-[ext_resource path="res://Assets/Models/gravestone.glb" type="PackedScene" id=22]
-[ext_resource path="res://Assets/Models/skeleton.glb" type="PackedScene" id=23]
 
 [sub_resource type="ProceduralSky" id=5]
 
@@ -24,9 +22,6 @@ size = Vector3( 1.6, 2, 1.6 )
 [sub_resource type="BoxShape" id=4]
 extents = Vector3( 20, 1, 20 )
 
-[sub_resource type="BoxShape" id=44]
-extents = Vector3( 0.2, 1, 0.2 )
-
 [node name="Main" type="Spatial"]
 script = ExtResource( 9 )
 entranceScene = ExtResource( 10 )
@@ -35,6 +30,7 @@ floorScene = ExtResource( 12 )
 emptyScene = ExtResource( 13 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
+defaultMovesPerTurn = 20
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 6 )
@@ -2453,26 +2449,7 @@ material/0 = SubResource( 9 )
 [node name="CollisionShape" type="CollisionShape" parent="Floor"]
 shape = SubResource( 4 )
 
-[node name="Enemy" type="RigidBody" parent="." groups=["enemy"]]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0 )
-sleeping = true
-script = ExtResource( 5 )
-
-[node name="gravestone" parent="Enemy" instance=ExtResource( 22 )]
-visible = false
-
-[node name="skeleton" parent="Enemy" instance=ExtResource( 23 )]
-
-[node name="Eyes" type="RayCast" parent="Enemy"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
-enabled = true
-cast_to = Vector3( 0, 0, -10 )
-debug_shape_custom_color = Color( 0.00784314, 1, 0, 1 )
-debug_shape_thickness = 5
-
-[node name="CollisionShape" type="CollisionShape" parent="Enemy"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
-shape = SubResource( 44 )
+[node name="Enemy" parent="." instance=ExtResource( 2 )]
 
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 66.2441, 0 )

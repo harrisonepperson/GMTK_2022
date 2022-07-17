@@ -37,28 +37,23 @@ public class Player : RigidBody
 
     public int numActions = 3;
 
-    AudioStreamPlayer lightAttackSound;
-    AudioStreamPlayer aoeAttackSound;
-    AudioStreamPlayer rangedAttackSound;
-    AudioStreamPlayer healSound;
-    AudioStreamPlayer shieldSound;
+    private bool isDead = false;
 
+    private string deathScreen = "res://Assets/Scenes/Outro.tscn";
+
+    private Timer actionTimer;
 
     public override void _Ready()
     {
+        GD.Load<PackedScene>(deathScreen);
+        actionTimer = GetNode<Timer>("ActionLock");
+
         autoload = GetNode<Autoload>("/root/Autoload");
         gridSize = autoload.gridSize;
         targetPos = Translation;
 
         remainingActions = defaultActionsPerTurn;
         remainingMoves = defaultMovesPerTurn;
-
-
-        lightAttackSound = GetNode<AudioStreamPlayer>("LightAttackSound");
-        aoeAttackSound = GetNode<AudioStreamPlayer>("AOEAttackSound");
-        rangedAttackSound = GetNode<AudioStreamPlayer>("RangedAttackSound");
-        healSound = GetNode<AudioStreamPlayer>("HealSound");
-        shieldSound = GetNode<AudioStreamPlayer>("ShieldSound");
     }
 
     public override void _Process(float delta)
@@ -104,6 +99,11 @@ public class Player : RigidBody
             }
         }
 
+        if (!actionLock && isDead)
+        {
+            GetTree().ChangeScene(deathScreen);
+        }
+
         if (autoload.isPlayerTurn && !actionLock && remainingActions == 0 && remainingMoves == 0)
         {
             autoload.finishPlayerTurn();
@@ -112,13 +112,30 @@ public class Player : RigidBody
 
     public void startTurn()
     {
+        autoload.isPlayerTurn = true;
         remainingActions = defaultActionsPerTurn;
         remainingMoves = defaultMovesPerTurn;
     }
 
-    private void kill()
+    public void damage(int hits)
     {
-        Sleeping = false;
+        if (autoload.playerShield > 0)
+        {
+            hits = Math.Abs(hits - autoload.playerShield);
+            autoload.playerShield = 0;
+        }
+
+        autoload.playerHealth -= hits;
+
+        if (autoload.playerHealth <= 0)
+        {
+            GetNode<Spatial>("knight").Visible = false;
+            GetNode<Spatial>("gravestone").Visible = true;
+
+            isDead = true;
+
+            handle_action(3F);
+        }
     }
 
     private void handle_move(Vector3 offset)
@@ -171,10 +188,8 @@ public class Player : RigidBody
         handle_move(new Vector3(2 * gridSize, 0, 0));
     }
 
-
     private void handle_action(float waitTime = 1.5F)
     {
-        Timer actionTimer = GetNode<Timer>("ActionLock");
         actionLock = true;
         actionTimer.WaitTime = waitTime;
         actionTimer.Start();

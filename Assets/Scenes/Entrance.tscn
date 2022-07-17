@@ -10,3 +10,4 @@ transform = Transform( 5, 0, 0, 0, 2, 0, 0, 0, 5, 0, 0, 0 )
 
 [node name="door" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1.6, 0, 0, 0, 1.6, 0, 0, 0, 1.6, 0, 0, 4 )
+visible = false

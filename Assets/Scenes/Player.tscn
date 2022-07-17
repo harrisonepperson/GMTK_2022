@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=2]
+[gd_scene load_steps=69 format=2]
 
 [ext_resource path="res://move_reroll.cs" type="Script" id=1]
 [ext_resource path="res://Range_Attack_Particles.cs" type="Script" id=2]
@@ -14,7 +14,7 @@
 [ext_resource path="res://Assets/Figma Exports/health-full.png" type="Texture" id=12]
 [ext_resource path="res://Assets/Figma Exports/active-shield.png" type="Texture" id=13]
 [ext_resource path="res://Assets/Figma Exports/health-empty.png" type="Texture" id=14]
-[ext_resource path="res://Assets/Scenes/LevelsCleared.cs" type="Script" id=15]
+[ext_resource path="res://Assets/Models/gravestone.glb" type="PackedScene" id=15]
 [ext_resource path="res://Assets/Scenes/GreenButton.cs" type="Script" id=16]
 [ext_resource path="res://Assets/Figma Exports/empty-green-button-hover.png" type="Texture" id=17]
 [ext_resource path="res://Assets/Figma Exports/sword.png" type="Texture" id=18]
@@ -24,6 +24,7 @@
 [ext_resource path="res://Assets/Sound Effects/ranged-attack.wav" type="AudioStream" id=22]
 [ext_resource path="res://Assets/Sound Effects/light-attack.mp3" type="AudioStream" id=23]
 [ext_resource path="res://Assets/Sound Effects/aoe-attack.wav" type="AudioStream" id=24]
+[ext_resource path="res://Assets/Scenes/LevelsCleared.cs" type="Script" id=20]
 
 [sub_resource type="CapsuleMesh" id=1]
 radius = 0.5
@@ -306,6 +307,9 @@ material/0 = null
 [node name="knight" parent="." instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0 )
 
+[node name="gravestone" parent="." instance=ExtResource( 15 )]
+visible = false
+
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1, 0 )
 shape = SubResource( 2 )
@@ -327,7 +331,7 @@ process_material = SubResource( 22 )
 draw_pass_1 = SubResource( 25 )
 
 [node name="Light_Attack_Particles" type="Particles" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0.297673, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.297673, 0 )
 material_override = SubResource( 54 )
 emitting = false
 amount = 300
@@ -628,7 +632,7 @@ custom_colors/font_color = Color( 1, 1, 1, 0.498039 )
 custom_fonts/font = SubResource( 61 )
 text = "Levels Passed: 1"
 align = 1
-script = ExtResource( 15 )
+script = ExtResource( 20 )
 
 [node name="Dungeon Cleared" type="Label" parent="CanvasLayer/FullScreen/Level Complete UI/Control"]
 margin_left = -215.0
@@ -645,7 +649,6 @@ margin_top = 36.0
 margin_right = 108.0
 margin_bottom = 119.0
 script = ExtResource( 16 )
-reloadCurrentScene = true
 
 [node name="bg" type="Sprite" parent="CanvasLayer/FullScreen/Level Complete UI/Control/GreenButton"]
 position = Vector2( 108, 42 )
@@ -692,6 +695,9 @@ bus = "SFX"
 [node name="RangedAttackSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 22 )
 bus = "SFX"
+[node name="ActionLock" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
 
 [connection signal="pressed" from="CanvasLayer/FullScreen/Bottom UI/end_turn" to="." method="_on_end_turn_pressed"]
 [connection signal="pressed" from="CanvasLayer/FullScreen/Bottom UI/move_reroll" to="CanvasLayer/FullScreen/Bottom UI/move_reroll" method="_on_move_reroll_pressed"]
@@ -701,3 +707,4 @@ bus = "SFX"
 [connection signal="mouse_entered" from="CanvasLayer/FullScreen/Level Complete UI/Control/GreenButton" to="CanvasLayer/FullScreen/Level Complete UI/Control/GreenButton" method="_on_GreenButton_mouse_entered"]
 [connection signal="mouse_exited" from="CanvasLayer/FullScreen/Level Complete UI/Control/GreenButton" to="CanvasLayer/FullScreen/Level Complete UI/Control/GreenButton" method="_on_GreenButton_mouse_exited"]
 [connection signal="pressed" from="CanvasLayer/FullScreen/Level Complete UI/Control/GreenButton" to="CanvasLayer/FullScreen/Level Complete UI/Control/GreenButton" method="_on_GreenButton_pressed"]
+[connection signal="timeout" from="ActionLock" to="." method="_on_ActionLock_timeout"]

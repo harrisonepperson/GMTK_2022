@@ -43,17 +43,16 @@ public class Autoload : Node
 
 			foreach (Enemy e in enemies)
 			{
-				//				GD.Print("Found enemy in list", e.isEnemyTurn);
+//				GD.Print("Found enemy in list", e.isEnemyTurn);
 				if (!e.isDead && e.isEnemyTurn)
 				{
-					//					GD.Print("Enemy reported still in progress");
+//					GD.Print("Enemy reported still in progress");
 					enemyStillPlaying = true;
 				}
 			}
 
 			if (!enemyStillPlaying)
 			{
-				isPlayerTurn = true;
 				GetTree().CallGroup("player", "startTurn");
 			}
 		}

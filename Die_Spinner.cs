@@ -223,13 +223,13 @@ public class Die_Spinner : Control
 		int newSide = currentSide;
 		while (newSide == currentSide)
 		{
-			newSide = rnd.Next(1, diceType == DieType.Action ? 7 : 4);
+			newSide = rnd.Next(1, diceType == DieType.Action ? 7 : 5);
 		}
 
-		if (diceType == DieType.Action)
-		{
-			GD.Print("Rolled: " + newSide);
-		}
+		// if (diceType == DieType.Action)
+		// {
+		// 	GD.Print("Rolled: " + newSide);
+		// }
 
 		currentSide = newSide;
 	}
