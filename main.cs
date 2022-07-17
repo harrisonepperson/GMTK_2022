@@ -59,8 +59,8 @@ public class main : Spatial
 			{ 0, 0, 0, 0, 0, 0, 0, 0 }
 		};
 
-		// switch (rnd.Next(0, 4)) {
-		switch (0) {
+		switch (rnd.Next(0, 4)) {
+		// switch (0) {
 			case 0:
 				GD.Print("Loading Map: 0");
 				option = new int[,] {
