@@ -8,10 +8,18 @@
 [ext_resource path="res://Assets/Scenes/Empty.tscn" type="PackedScene" id=13]
 
 [sub_resource type="ProceduralSky" id=5]
+ground_bottom_color = Color( 0.109804, 0.109804, 0.109804, 1 )
+ground_horizon_color = Color( 0.26, 0.26, 0.26, 1 )
 
 [sub_resource type="Environment" id=6]
 background_mode = 2
 background_sky = SubResource( 5 )
+fog_enabled = true
+fog_color = Color( 0.109804, 0.109804, 0.109804, 1 )
+fog_depth_enabled = false
+fog_height_enabled = true
+fog_height_min = -4.0
+fog_height_max = -8.0
 
 [sub_resource type="CubeMesh" id=3]
 size = Vector3( 1.6, 2, 1.6 )
