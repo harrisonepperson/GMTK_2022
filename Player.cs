@@ -24,14 +24,14 @@ public class Player : RigidBody
 	private int defaultActionsPerTurn = 1;
 
 	[Export]
-	private int defaultMovesPerTurn = 2;
-	
+	public int defaultMovesPerTurn = 2;
+
 	[Export]
 	private int lightDamage = 2;
-	
+
 	[Export]
 	private int aoeDamage = 1;
-	
+
 	[Export]
 	private int rangeDamage = 1;
 
@@ -199,7 +199,7 @@ public class Player : RigidBody
 					closestEnemy.damage(lightDamage);
 				}
 			}
-			
+
 			handle_action();
 			remainingActions--;
 			return;
@@ -211,17 +211,17 @@ public class Player : RigidBody
 		if (autoload.isPlayerTurn && !moveLock && !actionLock && remainingActions > 0)
 		{
 			Particles aoe = GetNode<Particles>("AOE_Attack_Particles");
-			
+
 			Godot.Collections.Array enemies = GetTree().GetNodesInGroup("enemy");
 			if (enemies.Count > 0)
 			{
 				aoe.Emitting = true;
-				foreach(Enemy e in enemies)
+				foreach (Enemy e in enemies)
 				{
 					if (!e.isDead)
 					{
 						float dist = Translation.DistanceSquaredTo(e.Translation);
-						
+
 						if (dist <= 6)
 						{
 							e.damage(aoeDamage);
@@ -229,7 +229,7 @@ public class Player : RigidBody
 					}
 				}
 			}
-			
+
 			handle_action();
 			remainingActions--;
 			return;

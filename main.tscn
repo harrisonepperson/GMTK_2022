@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=2]
+[gd_scene load_steps=68 format=2]
 
 [ext_resource path="res://Player.cs" type="Script" id=1]
 [ext_resource path="res://Assets/Scenes/Die_Spinner.tscn" type="PackedScene" id=2]
@@ -7,7 +7,12 @@
 [ext_resource path="res://Enemy.cs" type="Script" id=5]
 [ext_resource path="res://move_reroll.cs" type="Script" id=6]
 [ext_resource path="res://Assets/Scenes/Double Movement Dice.tscn" type="PackedScene" id=7]
-[ext_resource path="res://main.cs" type="Script" id=8]
+[ext_resource path="res://Assets/Scenes/Action Dice.tscn" type="PackedScene" id=8]
+[ext_resource path="res://main.cs" type="Script" id=9]
+[ext_resource path="res://Assets/Scenes/Entrance.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Assets/Scenes/Exit.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Assets/Scenes/Floor.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Assets/Scenes/Empty.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Assets/Figma Exports/health-full.png" type="Texture" id=15]
 [ext_resource path="res://Range_Attack_Particles.cs" type="Script" id=21]
 [ext_resource path="res://Assets/Models/gravestone.glb" type="PackedScene" id=22]
@@ -277,7 +282,11 @@ load_path = "res://.import/icon-shield.png-249c241b60aa42820062da3a4162885c.stex
 extents = Vector3( 0.2, 1, 0.2 )
 
 [node name="Main" type="Spatial"]
-script = ExtResource( 8 )
+script = ExtResource( 9 )
+entranceScene = ExtResource( 10 )
+exitScene = ExtResource( 11 )
+floorScene = ExtResource( 12 )
+emptyScene = ExtResource( 13 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 6 )
@@ -290,6 +299,7 @@ shadow_enabled = true
 
 [node name="Floor" type="StaticBody" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
+visible = false
 
 [node name="Spatial" type="Spatial" parent="Floor"]
 
@@ -2700,7 +2710,7 @@ sleeping = true
 script = ExtResource( 1 )
 
 [node name="Camera_Holder" type="Spatial" parent="Player"]
-transform = Transform( 1, 0, 0, 0, 0.809017, 0.587785, 0, -0.587785, 0.809017, 0, 1, 0 )
+transform = Transform( 0.707107, -0.415627, 0.572061, 0, 0.809017, 0.587785, -0.707107, -0.415627, 0.572061, 0, 1, 0 )
 
 [node name="Camera" type="Camera" parent="Player/Camera_Holder"]
 transform = Transform( 1, 0, 0, 0, 1, -2.98023e-08, 0, 2.98023e-08, 1, 0, 0, 10 )
@@ -2853,6 +2863,7 @@ expand = true
 script = ExtResource( 6 )
 
 [node name="action_heal" type="TextureButton" parent="Player/CanvasLayer/FullScreen/Bottom UI"]
+visible = false
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -106.0
@@ -2864,6 +2875,7 @@ texture_normal = SubResource( 32 )
 expand = true
 
 [node name="action_shield" type="TextureButton" parent="Player/CanvasLayer/FullScreen/Bottom UI"]
+visible = false
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -168.0
@@ -2873,6 +2885,44 @@ margin_bottom = 98.0
 rect_pivot_offset = Vector2( 28, 28 )
 texture_normal = SubResource( 31 )
 expand = true
+
+[node name="MovementGrid2" type="GridContainer" parent="Player/CanvasLayer/FullScreen/Bottom UI"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -291.0
+margin_top = 43.0
+margin_right = -21.0
+margin_bottom = 160.0
+custom_constants/vseparation = 7
+custom_constants/hseparation = 7
+columns = 4
+
+[node name="Die_Spinner" parent="Player/CanvasLayer/FullScreen/Bottom UI/MovementGrid2" instance=ExtResource( 2 )]
+diceModel = ExtResource( 8 )
+diceType = 0
+indexOffset = 6
+
+[node name="Die_Spinner2" parent="Player/CanvasLayer/FullScreen/Bottom UI/MovementGrid2" instance=ExtResource( 2 )]
+margin_left = 62.0
+margin_right = 117.0
+rect_pivot_offset = Vector2( -578, -401 )
+diceModel = ExtResource( 8 )
+diceType = 0
+indexOffset = 6
+
+[node name="Die_Spinner3" parent="Player/CanvasLayer/FullScreen/Bottom UI/MovementGrid2" instance=ExtResource( 2 )]
+margin_left = 124.0
+margin_right = 179.0
+diceModel = ExtResource( 8 )
+diceType = 0
+indexOffset = 6
+
+[node name="Die_Spinner4" parent="Player/CanvasLayer/FullScreen/Bottom UI/MovementGrid2" instance=ExtResource( 2 )]
+margin_left = 186.0
+margin_right = 241.0
+diceModel = ExtResource( 8 )
+diceType = 0
+indexOffset = 6
 
 [node name="Top UI" type="Control" parent="Player/CanvasLayer/FullScreen"]
 anchor_right = 1.0
@@ -2982,6 +3032,10 @@ debug_shape_thickness = 5
 [node name="CollisionShape" type="CollisionShape" parent="Enemy"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 shape = SubResource( 44 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 66.2441, 0 )
+current = true
 
 [connection signal="pressed" from="Player/CanvasLayer/FullScreen/Bottom UI/end_turn" to="Player" method="_on_end_turn_pressed"]
 [connection signal="pressed" from="Player/CanvasLayer/FullScreen/Bottom UI/move_reroll" to="Player/CanvasLayer/FullScreen/Bottom UI/move_reroll" method="_on_move_reroll_pressed"]

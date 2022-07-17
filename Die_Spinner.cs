@@ -23,6 +23,9 @@ public class Die_Spinner : Control
 	[Export]
 	private DieType diceType = DieType.Movement;
 
+	[Export]
+	private int indexOffset = 0;
+
 	private int roll_count = 0;
 
 	private int diceNumber = 0;
@@ -35,7 +38,7 @@ public class Die_Spinner : Control
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		int layerIndex = 19 - GetIndex();
+		int layerIndex = 19 - (GetIndex() + indexOffset);
 		GetNode<Camera>("Die_Viewport/Camera").SetCullMaskBit(layerIndex, true);
 
 		rotator = GetNode<Spatial>("Die_Viewport/Rotator");
@@ -178,10 +181,10 @@ public class Die_Spinner : Control
 				player._on_double_right_pressed();
 				break;
 			case 5:
-				player._on_double_left_pressed();
+				player._on_double_up_pressed();
 				break;
 			case 6:
-				player._on_double_right_pressed();
+				player._on_double_up_pressed();
 				break;
 		}
 		roll();
@@ -221,6 +224,8 @@ public class Die_Spinner : Control
 		{
 			newSide = rnd.Next(1, 7);
 		}
+
+		// GD.Print("Rolled: " + newSide);
 
 		currentSide = newSide;
 	}
