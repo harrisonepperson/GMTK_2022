@@ -10,7 +10,7 @@ public class GreenButton : TextureButton
 	private PackedScene nextScene;
 
 	[Export]
-	private int test;
+	private bool reloadCurrentScene = false;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -33,13 +33,20 @@ public class GreenButton : TextureButton
 
 	private void _on_GreenButton_pressed()
 	{
-		if (nextScene != null)
+		if (reloadCurrentScene)
 		{
-			GetTree().ChangeSceneTo(nextScene);
+			GetTree().ReloadCurrentScene();
 		}
 		else
 		{
-			GetTree().ChangeScene("res://main.tscn");
+			if (nextScene != null)
+			{
+				GetTree().ChangeSceneTo(nextScene);
+			}
+			else
+			{
+				GetTree().ChangeScene("res://main.tscn");
+			}
 		}
 	}
 }

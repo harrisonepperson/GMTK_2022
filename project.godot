@@ -19,6 +19,7 @@ config/icon="res://Assets/Figma Exports/Favicon.png"
 [autoload]
 
 Autoload="*res://Autoload.cs"
+AudioPlayer="*res://Assets/Scenes/AudioPlayer.tscn"
 
 [physics]
 
