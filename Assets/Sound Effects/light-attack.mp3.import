@@ -11,5 +11,5 @@ dest_files=[ "res://.import/light-attack.mp3-680968568f67c8dbef6aeae13c072039.mp
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

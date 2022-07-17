@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=2]
+[gd_scene load_steps=70 format=2]
 
 [ext_resource path="res://move_reroll.cs" type="Script" id=1]
 [ext_resource path="res://Range_Attack_Particles.cs" type="Script" id=2]
@@ -24,6 +24,8 @@
 [ext_resource path="res://Assets/Sound Effects/ranged-attack.wav" type="AudioStream" id=22]
 [ext_resource path="res://Assets/Sound Effects/light-attack.mp3" type="AudioStream" id=23]
 [ext_resource path="res://Assets/Sound Effects/aoe-attack.wav" type="AudioStream" id=24]
+[ext_resource path="res://Assets/Sound Effects/heal.mp3" type="AudioStream" id=25]
+[ext_resource path="res://Assets/Sound Effects/level-complete2.wav" type="AudioStream" id=26]
 
 [sub_resource type="CapsuleMesh" id=1]
 radius = 0.5
@@ -598,6 +600,10 @@ visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 
+[node name="LevelCompleteSound" type="AudioStreamPlayer" parent="CanvasLayer/FullScreen/Level Complete UI"]
+stream = ExtResource( 26 )
+bus = "SFX"
+
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer/FullScreen/Level Complete UI"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -684,6 +690,7 @@ stream = ExtResource( 21 )
 bus = "SFX"
 
 [node name="HealSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 25 )
 bus = "SFX"
 
 [node name="LightAttackSound" type="AudioStreamPlayer" parent="."]
