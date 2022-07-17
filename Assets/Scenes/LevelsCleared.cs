@@ -16,6 +16,7 @@ public class LevelsCleared : Label
 	{
 		if (autoload.score != cachedScore)
 		{
+			GD.Print("Score changed to: " + autoload.score);
 			cachedScore = autoload.score;
 			Text = "Levels Cleared: " + cachedScore;
 		}
