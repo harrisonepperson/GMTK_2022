@@ -213,6 +213,7 @@ public class Die_Spinner : Control
 				player._on_action_light_attack_pressed();
 				break;
 		}
+		roll();
 	}
 
 	public void roll()
