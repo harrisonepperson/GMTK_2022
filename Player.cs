@@ -3,248 +3,287 @@ using System;
 
 public class Player : RigidBody
 {
-	private Autoload autoload;
-	private int gridSize;
+    private Autoload autoload;
+    private int gridSize;
 
-	private Vector3 targetPos;
+    private Vector3 targetPos;
 
-	public int remainingActions;
-	public int remainingMoves;
+    public int remainingActions;
+    public int remainingMoves;
 
-	public bool moveLock = false;
-	public bool actionLock = false;
+    public bool moveLock = false;
+    public bool actionLock = false;
 
-	[Export]
-	private int maxHealth = 5;
+    [Export]
+    private int maxHealth = 5;
 
-	[Export]
-	private int slideSpeed = 5;
+    [Export]
+    private int slideSpeed = 5;
 
-	[Export]
-	private int defaultActionsPerTurn = 1;
+    [Export]
+    private int defaultActionsPerTurn = 1;
 
-	[Export]
-	public int defaultMovesPerTurn = 2;
+    [Export]
+    public int defaultMovesPerTurn = 2;
 
-	public override void _Ready()
-	{
-		autoload = GetNode<Autoload>("/root/Autoload");
-		gridSize = autoload.gridSize;
-		targetPos = Translation;
+    [Export]
+    private int lightDamage = 2;
 
-		remainingActions = defaultActionsPerTurn;
-		remainingMoves = defaultMovesPerTurn;
-	}
+    [Export]
+    private int aoeDamage = 1;
 
-	public override void _Process(float delta)
-	{
-		Label turnLabel = GetNode<Label>("CanvasLayer/FullScreen/Turn");
-		if (autoload.isPlayerTurn)
-		{
-			turnLabel.Text = "PLAYER TURN";
-		}
-		else
-		{
-			turnLabel.Text = "ENEMY TURN";
-		}
+    [Export]
+    private int rangeDamage = 1;
 
-		if (moveLock)
-		{
-			Translation = Translation.LinearInterpolate(targetPos, slideSpeed * delta);
+    public override void _Ready()
+    {
+        autoload = GetNode<Autoload>("/root/Autoload");
+        gridSize = autoload.gridSize;
+        targetPos = Translation;
 
-			if (Translation.DistanceSquaredTo(targetPos) <= 0.001)
-			{
-				Translation = targetPos;
-				moveLock = false;
-			}
-		}
+        remainingActions = defaultActionsPerTurn;
+        remainingMoves = defaultMovesPerTurn;
+    }
 
-		if (autoload.isPlayerTurn && !actionLock && remainingActions == 0 && remainingMoves == 0)
-		{
-			autoload.finishPlayerTurn();
-		}
-	}
+    public override void _Process(float delta)
+    {
+        Label turnLabel = GetNode<Label>("CanvasLayer/FullScreen/Turn");
+        if (autoload.isPlayerTurn)
+        {
+            turnLabel.Text = "PLAYER TURN";
+        }
+        else
+        {
+            turnLabel.Text = "ENEMY TURN";
+        }
 
-	public void startTurn()
-	{
-		remainingActions = defaultActionsPerTurn;
-		remainingMoves = defaultMovesPerTurn;
-	}
+        if (moveLock)
+        {
+            Translation = Translation.LinearInterpolate(targetPos, slideSpeed * delta);
 
-	private void kill()
-	{
-		Sleeping = false;
-	}
+            if (Translation.DistanceSquaredTo(targetPos) <= 0.001)
+            {
+                Translation = targetPos;
+                moveLock = false;
+            }
+        }
 
-	private void handle_move(Vector3 offset)
-	{
-		if (autoload.isPlayerTurn && !moveLock && !actionLock && remainingMoves > 0)
-		{
-			targetPos = new Vector3(Translation.x + offset.x, Translation.y, Translation.z + offset.z);
-			moveLock = true;
-			remainingMoves--;
-		}
-	}
+        if (autoload.isPlayerTurn && !actionLock && remainingActions == 0 && remainingMoves == 0)
+        {
+            autoload.finishPlayerTurn();
+        }
+    }
 
-	public void _on_up_pressed()
-	{
-		handle_move(new Vector3(0, 0, 0 - gridSize));
-	}
+    public void startTurn()
+    {
+        remainingActions = defaultActionsPerTurn;
+        remainingMoves = defaultMovesPerTurn;
+    }
 
-	public void _on_left_pressed()
-	{
-		handle_move(new Vector3(0 - gridSize, 0, 0));
-	}
+    private void kill()
+    {
+        Sleeping = false;
+    }
 
-	public void _on_down_pressed()
-	{
-		handle_move(new Vector3(0, 0, gridSize));
-	}
+    private void handle_move(Vector3 offset)
+    {
+        if (autoload.isPlayerTurn && !moveLock && !actionLock && remainingMoves > 0)
+        {
+            targetPos = new Vector3(Translation.x + offset.x, Translation.y, Translation.z + offset.z);
+            moveLock = true;
+            remainingMoves--;
+        }
+    }
 
-	public void _on_right_pressed()
-	{
-		handle_move(new Vector3(gridSize, 0, 0));
-	}
+    public void _on_up_pressed()
+    {
+        handle_move(new Vector3(0, 0, 0 - gridSize));
+    }
 
-	public void _on_double_up_pressed()
-	{
-		handle_move(new Vector3(0, 0, 0 - 2 * gridSize));
-	}
+    public void _on_left_pressed()
+    {
+        handle_move(new Vector3(0 - gridSize, 0, 0));
+    }
 
-	public void _on_double_left_pressed()
-	{
-		handle_move(new Vector3(0 - 2 * gridSize, 0, 0));
-	}
+    public void _on_down_pressed()
+    {
+        handle_move(new Vector3(0, 0, gridSize));
+    }
 
-	public void _on_double_down_pressed()
-	{
-		handle_move(new Vector3(0, 0, 2 * gridSize));
-	}
+    public void _on_right_pressed()
+    {
+        handle_move(new Vector3(gridSize, 0, 0));
+    }
 
-	public void _on_double_right_pressed()
-	{
-		handle_move(new Vector3(2 * gridSize, 0, 0));
-	}
+    public void _on_double_up_pressed()
+    {
+        handle_move(new Vector3(0, 0, 0 - 2 * gridSize));
+    }
+
+    public void _on_double_left_pressed()
+    {
+        handle_move(new Vector3(0 - 2 * gridSize, 0, 0));
+    }
+
+    public void _on_double_down_pressed()
+    {
+        handle_move(new Vector3(0, 0, 2 * gridSize));
+    }
+
+    public void _on_double_right_pressed()
+    {
+        handle_move(new Vector3(2 * gridSize, 0, 0));
+    }
 
 
-	private void handle_action(float waitTime = 1.5F)
-	{
-		Timer actionTimer = GetNode<Timer>("ActionLock");
-		actionLock = true;
-		actionTimer.WaitTime = waitTime;
-		actionTimer.Start();
-	}
+    private void handle_action(float waitTime = 1.5F)
+    {
+        Timer actionTimer = GetNode<Timer>("ActionLock");
+        actionLock = true;
+        actionTimer.WaitTime = waitTime;
+        actionTimer.Start();
+    }
 
-	public void _on_action_heal_pressed()
-	{
-		if (autoload.isPlayerTurn && !moveLock && !actionLock && remainingActions > 0)
-		{
-			autoload.playerHealth = Math.Min(maxHealth, autoload.playerHealth + 1);
-			GetNode<Particles>("Health_Particles").Emitting = true;
-			handle_action();
-			remainingActions--;
-		}
-	}
+    public void _on_action_heal_pressed()
+    {
+        if (autoload.isPlayerTurn && !moveLock && !actionLock && remainingActions > 0)
+        {
+            autoload.playerHealth = Math.Min(maxHealth, autoload.playerHealth + 1);
+            GetNode<Particles>("Health_Particles").Emitting = true;
+            handle_action();
+            remainingActions--;
+        }
+    }
 
-	public void _on_action_shield_pressed()
-	{
-		if (autoload.isPlayerTurn && !moveLock && !actionLock && remainingActions > 0)
-		{
-			autoload.playerShield++;
-			GetNode<Particles>("Shield_Particles").Emitting = true;
-			handle_action();
-			remainingActions--;
-		}
-	}
+    public void _on_action_shield_pressed()
+    {
+        if (autoload.isPlayerTurn && !moveLock && !actionLock && remainingActions > 0)
+        {
+            autoload.playerShield++;
+            GetNode<Particles>("Shield_Particles").Emitting = true;
+            handle_action();
+            remainingActions--;
+        }
+    }
 
-	public void _on_action_light_attack_pressed()
-	{
-		if (autoload.isPlayerTurn && !moveLock && !actionLock && remainingActions > 0)
-		{
-			handle_action();
-			remainingActions--;
-			return;
-		}
-	}
+    public void _on_action_light_attack_pressed()
+    {
+        if (autoload.isPlayerTurn && !moveLock && !actionLock && remainingActions > 0)
+        {
+            Particles ball = GetNode<Particles>("Light_Attack_Particles");
 
-	public void _on_action_area_attack_pressed()
-	{
-		if (autoload.isPlayerTurn && !moveLock && !actionLock && remainingActions > 0)
-		{
-			Particles aoe = GetNode<Particles>("AOE_Attack_Particles");
+            Godot.Collections.Array enemies = GetTree().GetNodesInGroup("enemy");
 
-			Godot.Collections.Array enemies = GetTree().GetNodesInGroup("enemy");
-			if (enemies.Count > 0)
-			{
-				aoe.Emitting = true;
-				foreach (Enemy e in enemies)
-				{
-					if (!e.isDead)
-					{
-						float dist = Translation.DistanceSquaredTo(e.Translation);
+            if (enemies.Count > 0)
+            {
+                Enemy closestEnemy = (Enemy)enemies[0];
+                float closestDist = Translation.DistanceSquaredTo(closestEnemy.Translation);
 
-						if (dist <= 6)
-						{
-							e.damage(1);
-						}
-					}
-				}
-			}
+                foreach (Enemy e in enemies)
+                {
+                    if (!e.isDead)
+                    {
+                        float enemDist = Translation.DistanceSquaredTo(e.Translation);
+                        if (enemDist < closestDist)
+                        {
+                            closestEnemy = e;
+                            closestDist = enemDist;
+                        }
+                    }
+                }
 
-			handle_action();
-			remainingActions--;
-			return;
-		}
-	}
+                if (closestDist <= 6)
+                {
+                    ball.Translation = new Vector3(closestEnemy.Translation.x - Translation.x, 2, closestEnemy.Translation.z - Translation.z);
+                    ball.Emitting = true;
+                    closestEnemy.damage(lightDamage);
+                }
+            }
 
-	public void _on_action_range_attack_pressed()
-	{
-		if (autoload.isPlayerTurn && !moveLock && !actionLock && remainingActions > 0)
-		{
-			Range_Attack_Particles fireBall = GetNode<Range_Attack_Particles>("Range_Attack_Particles");
+            handle_action();
+            remainingActions--;
+            return;
+        }
+    }
 
-			Godot.Collections.Array enemies = GetTree().GetNodesInGroup("enemy");
+    public void _on_action_area_attack_pressed()
+    {
+        if (autoload.isPlayerTurn && !moveLock && !actionLock && remainingActions > 0)
+        {
+            Particles aoe = GetNode<Particles>("AOE_Attack_Particles");
 
-			if (enemies.Count > 0)
-			{
-				Enemy closestEnemy = (Enemy)enemies[0];
-				float closestDist = Translation.DistanceSquaredTo(closestEnemy.Translation);
+            Godot.Collections.Array enemies = GetTree().GetNodesInGroup("enemy");
+            if (enemies.Count > 0)
+            {
+                aoe.Emitting = true;
+                foreach (Enemy e in enemies)
+                {
+                    if (!e.isDead)
+                    {
+                        float dist = Translation.DistanceSquaredTo(e.Translation);
 
-				foreach (Enemy e in enemies)
-				{
-					if (!e.isDead)
-					{
-						float enemDist = Translation.DistanceSquaredTo(e.Translation);
-						if (enemDist < closestDist)
-						{
-							closestEnemy = e;
-							closestDist = enemDist;
-						}
-					}
-				}
+                        if (dist <= 6)
+                        {
+                            e.damage(aoeDamage);
+                        }
+                    }
+                }
+            }
 
-				if (closestDist <= 36)
-				{
-					fireBall.castTo(new Vector3(closestEnemy.Translation.x - Translation.x, 2, closestEnemy.Translation.z - Translation.z));
-					closestEnemy.damage(1);
-				}
-			}
+            handle_action();
+            remainingActions--;
+            return;
+        }
+    }
 
-			handle_action();
-			remainingActions--;
-			return;
-		}
-	}
+    public void _on_action_range_attack_pressed()
+    {
+        if (autoload.isPlayerTurn && !moveLock && !actionLock && remainingActions > 0)
+        {
+            Range_Attack_Particles fireBall = GetNode<Range_Attack_Particles>("Range_Attack_Particles");
 
-	private void _on_end_turn_pressed()
-	{
-		autoload.finishPlayerTurn();
-		remainingActions = 0;
-		remainingMoves = 0;
-	}
+            Godot.Collections.Array enemies = GetTree().GetNodesInGroup("enemy");
 
-	private void _on_ActionLock_timeout()
-	{
-		actionLock = false;
-	}
+            if (enemies.Count > 0)
+            {
+                Enemy closestEnemy = (Enemy)enemies[0];
+                float closestDist = Translation.DistanceSquaredTo(closestEnemy.Translation);
+
+                foreach (Enemy e in enemies)
+                {
+                    if (!e.isDead)
+                    {
+                        float enemDist = Translation.DistanceSquaredTo(e.Translation);
+                        if (enemDist < closestDist)
+                        {
+                            closestEnemy = e;
+                            closestDist = enemDist;
+                        }
+                    }
+                }
+
+                if (closestDist <= 36)
+                {
+                    fireBall.castTo(new Vector3(closestEnemy.Translation.x - Translation.x, 2, closestEnemy.Translation.z - Translation.z));
+                    closestEnemy.damage(rangeDamage);
+                }
+            }
+
+            handle_action();
+            remainingActions--;
+            return;
+        }
+    }
+
+    private void _on_end_turn_pressed()
+    {
+        autoload.finishPlayerTurn();
+        remainingActions = 0;
+        remainingMoves = 0;
+    }
+
+    private void _on_ActionLock_timeout()
+    {
+        actionLock = false;
+    }
 }
