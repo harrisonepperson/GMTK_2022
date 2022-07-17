@@ -35,6 +35,8 @@ public class Player : RigidBody
 	[Export]
 	private int rangeDamage = 1;
 
+	public int numActions = 3;
+
 	public override void _Ready()
 	{
 		autoload = GetNode<Autoload>("/root/Autoload");
@@ -142,6 +144,7 @@ public class Player : RigidBody
 		actionLock = true;
 		actionTimer.WaitTime = waitTime;
 		actionTimer.Start();
+		numActions--;
 	}
 
 	public void _on_action_heal_pressed()
@@ -192,7 +195,7 @@ public class Player : RigidBody
 					}
 				}
 
-				if (closestDist <= 6)
+				if (closestDist <= 8)
 				{
 					ball.Translation = new Vector3(closestEnemy.Translation.x - Translation.x, 2, closestEnemy.Translation.z - Translation.z);
 					ball.Emitting = true;
@@ -222,7 +225,7 @@ public class Player : RigidBody
 					{
 						float dist = Translation.DistanceSquaredTo(e.Translation);
 
-						if (dist <= 6)
+						if (dist <= 8)
 						{
 							e.damage(aoeDamage);
 						}
