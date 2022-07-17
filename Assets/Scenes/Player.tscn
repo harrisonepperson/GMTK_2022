@@ -668,6 +668,7 @@ margin_top = 36.0
 margin_right = 108.0
 margin_bottom = 119.0
 script = ExtResource( 16 )
+reloadCurrentScene = true
 
 [node name="bg" type="Sprite" parent="CanvasLayer/FullScreen/Level Complete UI/Control/GreenButton"]
 position = Vector2( 108, 42 )
