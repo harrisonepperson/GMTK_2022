@@ -33,6 +33,13 @@ public class Autoload : Node
 		ResourceLoader.Load("res://Assets/Sound Effects/shield.wav");
 	}
 
+	public void ResetGame()
+	{
+		playerHealth = 4;
+		playerShield = 0;
+		levelComplete = false;
+	}
+
 	public override void _Process(float delta)
 	{
 		if (!isPlayerTurn)

@@ -8,6 +8,7 @@ public class GreenButton : TextureButton
 
 	[Export]
 	private PackedScene nextScene;
+	private Autoload autoload;
 
 	[Export]
 	private bool reloadCurrentScene = false;
@@ -15,6 +16,7 @@ public class GreenButton : TextureButton
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		autoload = GetNode<Autoload>("/root/Autoload");
 		bg = GetNode<Sprite>("bg");
 		bgHover = GetNode<Sprite>("bg-hover");
 	}
@@ -42,10 +44,12 @@ public class GreenButton : TextureButton
 			if (nextScene != null)
 			{
 				GetTree().ChangeSceneTo(nextScene);
+				autoload.ResetGame();
 			}
 			else
 			{
 				GetTree().ChangeScene("res://main.tscn");
+				autoload.ResetGame();
 			}
 		}
 	}

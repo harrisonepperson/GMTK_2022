@@ -15,8 +15,8 @@ public class Health : Control
 	private TextureRect heart3Disabled;
 	private TextureRect heart4Disabled;
 
-	private int cachedPlayerHealth = 0;
-	private int cachedPlayerShield = 1;
+	private int cachedPlayerHealth = -1;
+	private int cachedPlayerShield = -1;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -45,19 +45,19 @@ public class Health : Control
 			shield1.Visible = cachedPlayerShield >= 1;
 		}
 
-		//If the health has changed, update the UI.
-		if (autoload.playerHealth != cachedPlayerHealth)
-		{
-			cachedPlayerHealth = autoload.playerHealth;
-			heart1.Visible = cachedPlayerHealth >= 1;
-			heart1Disabled.Visible = !heart1.Visible;
-			heart2.Visible = cachedPlayerHealth >= 2;
-			heart2Disabled.Visible = !heart2.Visible;
-			heart3.Visible = cachedPlayerHealth >= 3;
-			heart3Disabled.Visible = !heart3.Visible;
-			heart4.Visible = cachedPlayerHealth >= 4;
-			heart4Disabled.Visible = !heart4.Visible;
-		}
+		// //If the health has changed, update the UI.
+		// if (autoload.playerHealth != cachedPlayerHealth)
+		// {
+		cachedPlayerHealth = autoload.playerHealth;
+		heart1.Visible = cachedPlayerHealth >= 1;
+		heart1Disabled.Visible = !heart1.Visible;
+		heart2.Visible = cachedPlayerHealth >= 2;
+		heart2Disabled.Visible = !heart2.Visible;
+		heart3.Visible = cachedPlayerHealth >= 3;
+		heart3Disabled.Visible = !heart3.Visible;
+		heart4.Visible = cachedPlayerHealth >= 4;
+		heart4Disabled.Visible = !heart4.Visible;
+		// }
 
 	}
 }

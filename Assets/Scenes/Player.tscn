@@ -553,6 +553,7 @@ texture = ExtResource( 12 )
 expand = true
 
 [node name="heart1-disabled" type="TextureRect" parent="CanvasLayer/FullScreen/Top UI"]
+visible = false
 margin_left = 18.0
 margin_top = 15.0
 margin_right = 66.0
@@ -561,6 +562,7 @@ texture = ExtResource( 14 )
 expand = true
 
 [node name="heart2-disabled" type="TextureRect" parent="CanvasLayer/FullScreen/Top UI"]
+visible = false
 margin_left = 69.0
 margin_top = 15.0
 margin_right = 117.0
@@ -570,6 +572,7 @@ texture = ExtResource( 14 )
 expand = true
 
 [node name="heart3-disabled" type="TextureRect" parent="CanvasLayer/FullScreen/Top UI"]
+visible = false
 margin_left = 119.0
 margin_top = 15.0
 margin_right = 167.0
@@ -579,6 +582,7 @@ texture = ExtResource( 14 )
 expand = true
 
 [node name="heart4-disabled" type="TextureRect" parent="CanvasLayer/FullScreen/Top UI"]
+visible = false
 margin_left = 169.0
 margin_top = 15.0
 margin_right = 217.0
