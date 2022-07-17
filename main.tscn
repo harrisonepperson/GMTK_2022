@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=2]
+[gd_scene load_steps=63 format=2]
 
 [ext_resource path="res://Player.cs" type="Script" id=1]
 [ext_resource path="res://Assets/Scenes/Die_Spinner.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Enemy.cs" type="Script" id=5]
 [ext_resource path="res://move_reroll.cs" type="Script" id=6]
 [ext_resource path="res://Assets/Scenes/Double Movement Dice.tscn" type="PackedScene" id=7]
+[ext_resource path="res://main.cs" type="Script" id=8]
 [ext_resource path="res://Assets/Figma Exports/health-full.png" type="Texture" id=15]
 [ext_resource path="res://Range_Attack_Particles.cs" type="Script" id=21]
 [ext_resource path="res://Assets/Models/gravestone.glb" type="PackedScene" id=22]
@@ -275,7 +276,8 @@ load_path = "res://.import/icon-shield.png-249c241b60aa42820062da3a4162885c.stex
 [sub_resource type="BoxShape" id=44]
 extents = Vector3( 0.2, 1, 0.2 )
 
-[node name="Spatial" type="Spatial"]
+[node name="Main" type="Spatial"]
+script = ExtResource( 8 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 6 )

@@ -51,7 +51,7 @@ public class Die_Spinner : Control
 
 		rotator.AddChild(die);
 
-		player = GetNode<Player>("/root/Spatial/Player");
+		player = GetNode<Player>("/root/Main/Player");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
