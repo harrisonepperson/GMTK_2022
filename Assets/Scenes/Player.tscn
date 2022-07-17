@@ -721,6 +721,13 @@ bus = "SFX"
 wait_time = 1.5
 one_shot = true
 
+[node name="Eyes" type="RayCast" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0 )
+enabled = true
+cast_to = Vector3( -4, 0, 0 )
+debug_shape_custom_color = Color( 1, 0, 0, 1 )
+debug_shape_thickness = 5
+
 [connection signal="pressed" from="CanvasLayer/FullScreen/Bottom UI/end_turn" to="." method="_on_end_turn_pressed"]
 [connection signal="pressed" from="CanvasLayer/FullScreen/Bottom UI/move_reroll" to="CanvasLayer/FullScreen/Bottom UI/move_reroll" method="_on_move_reroll_pressed"]
 [connection signal="pressed" from="CanvasLayer/FullScreen/Bottom UI/action_heal" to="." method="_on_action_heal_pressed"]
