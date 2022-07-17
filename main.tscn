@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=2]
+[gd_scene load_steps=55 format=2]
 
 [ext_resource path="res://Player.cs" type="Script" id=1]
 [ext_resource path="res://Assets/Scenes/Die_Spinner.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Assets/Scenes/Movement Dice.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Enemy.cs" type="Script" id=5]
 [ext_resource path="res://move_reroll.cs" type="Script" id=6]
+[ext_resource path="res://Assets/Scenes/Double Movement Dice.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Assets/Figma Exports/health-full.png" type="Texture" id=15]
 [ext_resource path="res://Range_Attack_Particles.cs" type="Script" id=21]
 [ext_resource path="res://Assets/Models/gravestone.glb" type="PackedScene" id=22]
@@ -2744,7 +2745,7 @@ margin_right = 379.0
 margin_bottom = 130.0
 custom_constants/vseparation = 7
 custom_constants/hseparation = 7
-columns = 4
+columns = 3
 
 [node name="Die_Spinner" parent="Player/CanvasLayer/FullScreen/Bottom UI/MovementGrid" instance=ExtResource( 2 )]
 diceModel = ExtResource( 4 )
@@ -2757,38 +2758,28 @@ diceModel = ExtResource( 4 )
 [node name="Die_Spinner3" parent="Player/CanvasLayer/FullScreen/Bottom UI/MovementGrid" instance=ExtResource( 2 )]
 margin_left = 124.0
 margin_right = 179.0
-diceModel = ExtResource( 4 )
+diceModel = ExtResource( 7 )
+diceType = 1
 
 [node name="Die_Spinner4" parent="Player/CanvasLayer/FullScreen/Bottom UI/MovementGrid" instance=ExtResource( 2 )]
-margin_left = 186.0
-margin_right = 241.0
-diceModel = ExtResource( 4 )
-
-[node name="Die_Spinner5" parent="Player/CanvasLayer/FullScreen/Bottom UI/MovementGrid" instance=ExtResource( 2 )]
 margin_top = 62.0
 margin_bottom = 117.0
 diceModel = ExtResource( 4 )
 
-[node name="Die_Spinner6" parent="Player/CanvasLayer/FullScreen/Bottom UI/MovementGrid" instance=ExtResource( 2 )]
+[node name="Die_Spinner5" parent="Player/CanvasLayer/FullScreen/Bottom UI/MovementGrid" instance=ExtResource( 2 )]
 margin_left = 62.0
 margin_top = 62.0
 margin_right = 117.0
 margin_bottom = 117.0
 diceModel = ExtResource( 4 )
 
-[node name="Die_Spinner7" parent="Player/CanvasLayer/FullScreen/Bottom UI/MovementGrid" instance=ExtResource( 2 )]
+[node name="Die_Spinner6" parent="Player/CanvasLayer/FullScreen/Bottom UI/MovementGrid" instance=ExtResource( 2 )]
 margin_left = 124.0
 margin_top = 62.0
 margin_right = 179.0
 margin_bottom = 117.0
-diceModel = ExtResource( 4 )
-
-[node name="Die_Spinner8" parent="Player/CanvasLayer/FullScreen/Bottom UI/MovementGrid" instance=ExtResource( 2 )]
-margin_left = 186.0
-margin_top = 62.0
-margin_right = 241.0
-margin_bottom = 117.0
-diceModel = ExtResource( 4 )
+diceModel = ExtResource( 7 )
+diceType = 1
 
 [node name="end_turn" type="TextureButton" parent="Player/CanvasLayer/FullScreen/Bottom UI"]
 anchor_left = 0.5
