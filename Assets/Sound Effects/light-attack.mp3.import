@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/light-attack.mp3-680968568f67c8dbef6aeae13c072039.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sound Effects/light-attack.mp3"
+dest_files=[ "res://.import/light-attack.mp3-680968568f67c8dbef6aeae13c072039.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

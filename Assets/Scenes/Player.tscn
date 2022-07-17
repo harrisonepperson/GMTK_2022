@@ -586,6 +586,7 @@ texture = ExtResource( 13 )
 expand = true
 
 [node name="Level Complete UI" type="Control" parent="CanvasLayer/FullScreen"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 
