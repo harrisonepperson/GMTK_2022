@@ -159,10 +159,10 @@ public class Enemy : RigidBody
 				}
 
 				if (remainingActions > 0) {
-					if (Math.Abs(posDelta.x) == gridSize) {
+					if (Math.Abs(posDelta.x) == gridSize && Math.Abs(posDelta.y) == 0) {
 //						GD.Print("Attacking adjacent Player");
 						handleAttack();
-					} else if (Math.Abs(posDelta.y) == gridSize) {
+					} else if (Math.Abs(posDelta.y) == gridSize && Math.Abs(posDelta.x) == 0) {
 //						GD.Print("Attacking adjacent Player");
 						handleAttack();
 					} else {
