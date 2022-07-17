@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=2]
+[gd_scene load_steps=63 format=2]
 
 [ext_resource path="res://move_reroll.cs" type="Script" id=1]
 [ext_resource path="res://Range_Attack_Particles.cs" type="Script" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://Assets/Figma Exports/health-full.png" type="Texture" id=12]
 [ext_resource path="res://Assets/Figma Exports/active-shield.png" type="Texture" id=13]
 [ext_resource path="res://Assets/Figma Exports/health-empty.png" type="Texture" id=14]
+[ext_resource path="res://Assets/Scenes/LevelsCleared.cs" type="Script" id=15]
 [ext_resource path="res://Assets/Scenes/GreenButton.cs" type="Script" id=16]
 [ext_resource path="res://Assets/Figma Exports/empty-green-button-hover.png" type="Texture" id=17]
 [ext_resource path="res://Assets/Figma Exports/sword.png" type="Texture" id=18]
@@ -355,6 +356,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="Turn" type="Label" parent="CanvasLayer/FullScreen"]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.05
 anchor_right = 0.5
@@ -621,6 +623,7 @@ custom_colors/font_color = Color( 1, 1, 1, 0.498039 )
 custom_fonts/font = SubResource( 61 )
 text = "Levels Passed: 1"
 align = 1
+script = ExtResource( 15 )
 
 [node name="Dungeon Cleared" type="Label" parent="CanvasLayer/FullScreen/Level Complete UI/Control"]
 margin_left = -215.0
