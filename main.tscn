@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=2]
+[gd_scene load_steps=63 format=2]
 
 [ext_resource path="res://Player.cs" type="Script" id=1]
 [ext_resource path="res://Assets/Scenes/Die_Spinner.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Enemy.cs" type="Script" id=5]
 [ext_resource path="res://move_reroll.cs" type="Script" id=6]
 [ext_resource path="res://Assets/Scenes/Double Movement Dice.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Assets/Scenes/Action Dice.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Assets/Figma Exports/health-full.png" type="Texture" id=15]
 [ext_resource path="res://Range_Attack_Particles.cs" type="Script" id=21]
 [ext_resource path="res://Assets/Models/gravestone.glb" type="PackedScene" id=22]
@@ -2851,6 +2852,7 @@ expand = true
 script = ExtResource( 6 )
 
 [node name="action_heal" type="TextureButton" parent="Player/CanvasLayer/FullScreen/Bottom UI"]
+visible = false
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -106.0
@@ -2862,6 +2864,7 @@ texture_normal = SubResource( 32 )
 expand = true
 
 [node name="action_shield" type="TextureButton" parent="Player/CanvasLayer/FullScreen/Bottom UI"]
+visible = false
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -168.0
@@ -2871,6 +2874,44 @@ margin_bottom = 98.0
 rect_pivot_offset = Vector2( 28, 28 )
 texture_normal = SubResource( 31 )
 expand = true
+
+[node name="MovementGrid2" type="GridContainer" parent="Player/CanvasLayer/FullScreen/Bottom UI"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -291.0
+margin_top = 43.0
+margin_right = -21.0
+margin_bottom = 160.0
+custom_constants/vseparation = 7
+custom_constants/hseparation = 7
+columns = 4
+
+[node name="Die_Spinner" parent="Player/CanvasLayer/FullScreen/Bottom UI/MovementGrid2" instance=ExtResource( 2 )]
+diceModel = ExtResource( 8 )
+diceType = 0
+indexOffset = 6
+
+[node name="Die_Spinner2" parent="Player/CanvasLayer/FullScreen/Bottom UI/MovementGrid2" instance=ExtResource( 2 )]
+margin_left = 62.0
+margin_right = 117.0
+rect_pivot_offset = Vector2( -578, -401 )
+diceModel = ExtResource( 8 )
+diceType = 0
+indexOffset = 6
+
+[node name="Die_Spinner3" parent="Player/CanvasLayer/FullScreen/Bottom UI/MovementGrid2" instance=ExtResource( 2 )]
+margin_left = 124.0
+margin_right = 179.0
+diceModel = ExtResource( 8 )
+diceType = 0
+indexOffset = 6
+
+[node name="Die_Spinner4" parent="Player/CanvasLayer/FullScreen/Bottom UI/MovementGrid2" instance=ExtResource( 2 )]
+margin_left = 186.0
+margin_right = 241.0
+diceModel = ExtResource( 8 )
+diceType = 0
+indexOffset = 6
 
 [node name="Top UI" type="Control" parent="Player/CanvasLayer/FullScreen"]
 anchor_right = 1.0

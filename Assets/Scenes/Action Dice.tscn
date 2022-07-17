@@ -1,0 +1,61 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Assets/Models/Meshes/die-background.tres" type="ArrayMesh" id=2]
+[ext_resource path="res://Assets/Figma Exports/inner-icon-spin.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Figma Exports/inner-icon-heart.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Figma Exports/inner-icon-arrow.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Figma Exports/inner-icon-shield.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Figma Exports/inner-icon-sword.png" type="Texture" id=7]
+
+[sub_resource type="SpatialMaterial" id=2]
+flags_unshaded = true
+
+[node name="MeshInstance" type="MeshInstance"]
+transform = Transform( 1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0, 0 )
+layers = 0
+cast_shadow = 0
+mesh = ExtResource( 2 )
+skeleton = NodePath("../..")
+material/0 = SubResource( 2 )
+
+[node name="side-#1" type="Sprite3D" parent="."]
+transform = Transform( 1.2, 0, 2.09815e-07, 0, 1.2, 0, -2.09815e-07, 0, 1.2, 0, 0, 1.01 )
+layers = 0
+cast_shadow = 0
+double_sided = false
+texture = ExtResource( 4 )
+
+[node name="side-#2" type="Sprite3D" parent="."]
+transform = Transform( -1.2, 1.04907e-07, 4.58565e-15, 0, -5.24537e-08, 1.2, 1.04907e-07, 1.2, 5.24537e-08, 0, 1.01, 0.027 )
+layers = 0
+cast_shadow = 0
+double_sided = false
+texture = ExtResource( 6 )
+
+[node name="side-#3" type="Sprite3D" parent="."]
+transform = Transform( 5.24537e-08, -1.2, -1.04907e-07, -1.2, -5.24537e-08, 0, -4.58565e-15, 1.04907e-07, -1.2, 0, 0, -1.01 )
+layers = 0
+cast_shadow = 0
+double_sided = false
+texture = ExtResource( 7 )
+
+[node name="side-#4" type="Sprite3D" parent="."]
+transform = Transform( -5.24537e-08, 1.2, -5.24537e-08, 0, -5.24537e-08, -1.2, -1.2, -5.24537e-08, 2.29282e-15, 0, -1.01, 0.027 )
+layers = 0
+cast_shadow = 0
+double_sided = false
+texture = ExtResource( 3 )
+
+[node name="side-#5" type="Sprite3D" parent="."]
+transform = Transform( 9.05975e-08, 0, -1.2, 0, 1.2, 0, 1.2, 0, 9.05975e-08, -1.01, 0, 0.036 )
+layers = 0
+cast_shadow = 0
+double_sided = false
+texture = ExtResource( 5 )
+
+[node name="side-#6" type="Sprite3D" parent="."]
+transform = Transform( -5.24537e-08, 0, 1.2, 0, 1.2, 0, -1.2, 0, -5.24537e-08, 1.01, 0, 0.027 )
+layers = 0
+cast_shadow = 0
+double_sided = false
+texture = ExtResource( 7 )
