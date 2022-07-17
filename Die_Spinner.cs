@@ -54,7 +54,7 @@ public class Die_Spinner : Control
 
 		rotator.AddChild(die);
 
-		player = GetNode<Player>("/root/Spatial/Player");
+		player = GetNode<Player>("/root/Main/Player");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -223,7 +223,7 @@ public class Die_Spinner : Control
 		int newSide = currentSide;
 		while (newSide == currentSide)
 		{
-			newSide = rnd.Next(1, 7);
+			newSide = rnd.Next(1, diceType == DieType.Action ? 7 : 4);
 		}
 
 		if (diceType == DieType.Action)

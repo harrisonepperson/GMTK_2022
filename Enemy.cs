@@ -116,7 +116,7 @@ public class Enemy : RigidBody
 	public void handleTurn()
 	{
 //		GD.Print("Handling Enemy Turn");
-		RigidBody player = GetNode<RigidBody>("/root/Spatial/Player");
+		RigidBody player = GetNode<RigidBody>("/root/Main/Player");
 		Vector3 playerPos = player.Translation;
 		Vector2 posDelta = new Vector2(Translation.x - playerPos.x, Translation.z - playerPos.z);
 		Vector2 sitePath = posDelta.Normalized();

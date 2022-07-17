@@ -24,7 +24,7 @@ public class Dice : Spatial
 	public override void _Ready()
 	{
 		dieContainer = GetNode<Spatial>("die-container");
-		player = GetNode<Player>("/root/Spatial/Player");
+		player = GetNode<Player>("/root/Main/Player");
 		GD.Print(dieContainer);
 		roll();
 	}

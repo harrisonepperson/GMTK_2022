@@ -11,11 +11,11 @@ public class move_reroll : TextureButton
 	private int cachedRemainingMoves = 0;
 
 	// Called when the node enters the scene tree for the first time.
-	public override async void _Ready()
+	public override void _Ready()
 	{
 		movementGrid = GetNode<GridContainer>("../MovementGrid");
 
-		player = GetNode<Player>("/root/Spatial/Player");
+		player = GetNode<Player>("/root/Main/Player");
 	}
 
 
