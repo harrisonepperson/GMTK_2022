@@ -5,7 +5,7 @@ public class Die_Spinner : Control
 {
 	private Spatial rotator;
 
-	private int currentSide = 1;
+	private int currentSide = 0;
 
 	[Export]
 	private int rotation_speed = 3;
@@ -213,6 +213,7 @@ public class Die_Spinner : Control
 				player._on_action_light_attack_pressed();
 				break;
 		}
+		roll();
 	}
 
 	public void roll()
@@ -225,7 +226,10 @@ public class Die_Spinner : Control
 			newSide = rnd.Next(1, 7);
 		}
 
-		// GD.Print("Rolled: " + newSide);
+		if (diceType == DieType.Action)
+		{
+			GD.Print("Rolled: " + newSide);
+		}
 
 		currentSide = newSide;
 	}
