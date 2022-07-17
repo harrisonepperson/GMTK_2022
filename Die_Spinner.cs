@@ -3,225 +3,230 @@ using System;
 
 public class Die_Spinner : Control
 {
-	private Spatial rotator;
+    private Spatial rotator;
 
-	private int currentSide = 1;
+    private int currentSide = 1;
 
-	[Export]
-	private int rotation_speed = 3;
+    [Export]
+    private int rotation_speed = 3;
 
-	[Export]
-	private PackedScene diceModel;
+    [Export]
+    private PackedScene diceModel;
 
-	public enum DieType
-	{
-		Action,
-		DoubleMovement,
-		Movement
-	}
+    public enum DieType
+    {
+        Action,
+        DoubleMovement,
+        Movement
+    }
 
-	[Export]
-	private DieType diceType = DieType.Movement;
+    [Export]
+    private DieType diceType = DieType.Movement;
 
-	private int roll_count = 0;
+    [Export]
+    private int indexOffset = 0;
 
-	private int diceNumber = 0;
+    private int roll_count = 0;
 
-	private int cachedRemainingMoves = 0;
-	private int cachedRemainingActions = 0;
+    private int diceNumber = 0;
 
-	private Player player = null;
+    private int cachedRemainingMoves = 0;
+    private int cachedRemainingActions = 0;
 
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-		int layerIndex = 19 - GetIndex();
-		GetNode<Camera>("Die_Viewport/Camera").SetCullMaskBit(layerIndex, true);
+    private Player player = null;
 
-		rotator = GetNode<Spatial>("Die_Viewport/Rotator");
-		MeshInstance die = (MeshInstance)diceModel.Instance();
-		die.SetLayerMaskBit(layerIndex, true);
+    // Called when the node enters the scene tree for the first time.
+    public override void _Ready()
+    {
+        int layerIndex = 19 - (GetIndex() + indexOffset);
+        GetNode<Camera>("Die_Viewport/Camera").SetCullMaskBit(layerIndex, true);
 
-		foreach (Sprite3D s in die.GetChildren())
-		{
-			s.SetLayerMaskBit(layerIndex, true);
-		}
+        rotator = GetNode<Spatial>("Die_Viewport/Rotator");
+        MeshInstance die = (MeshInstance)diceModel.Instance();
+        die.SetLayerMaskBit(layerIndex, true);
 
-		roll();
+        foreach (Sprite3D s in die.GetChildren())
+        {
+            s.SetLayerMaskBit(layerIndex, true);
+        }
 
-		rotator.AddChild(die);
+        roll();
 
-		player = GetNode<Player>("/root/Spatial/Player");
-	}
+        rotator.AddChild(die);
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(float delta)
-	{
-		if (diceType == DieType.Movement || diceType == DieType.DoubleMovement)
-		{
-			if (player.remainingMoves != cachedRemainingMoves)
-			{
-				cachedRemainingMoves = player.remainingMoves;
-				var newModulate = new Color(Modulate);
-				newModulate.a = cachedRemainingMoves < 1 ? 0.3F : 1F;
-				Modulate = newModulate;
-			}
-		}
-		else if (diceType == DieType.Action)
-		{
-			if (player.remainingActions != cachedRemainingActions)
-			{
-				cachedRemainingActions = player.remainingActions;
-				var newModulate = new Color(Modulate);
-				newModulate.a = cachedRemainingActions < 1 ? 0.3F : 1F;
-				Modulate = newModulate;
-			}
-		}
+        player = GetNode<Player>("/root/Spatial/Player");
+    }
 
-		//Rotate the die.
-		Vector3 targetRotation;
+    // Called every frame. 'delta' is the elapsed time since the previous frame.
+    public override void _Process(float delta)
+    {
+        if (diceType == DieType.Movement || diceType == DieType.DoubleMovement)
+        {
+            if (player.remainingMoves != cachedRemainingMoves)
+            {
+                cachedRemainingMoves = player.remainingMoves;
+                var newModulate = new Color(Modulate);
+                newModulate.a = cachedRemainingMoves < 1 ? 0.3F : 1F;
+                Modulate = newModulate;
+            }
+        }
+        else if (diceType == DieType.Action)
+        {
+            if (player.remainingActions != cachedRemainingActions)
+            {
+                cachedRemainingActions = player.remainingActions;
+                var newModulate = new Color(Modulate);
+                newModulate.a = cachedRemainingActions < 1 ? 0.3F : 1F;
+                Modulate = newModulate;
+            }
+        }
 
-		switch (currentSide)
-		{
-			case 1:
-				targetRotation = new Vector3(0, 0, 0);
-				break;
-			case 2:
-				targetRotation = new Vector3(90, 0, 0);
-				break;
-			case 3:
-				targetRotation = new Vector3(180, 0, 0);
-				break;
-			case 4:
-				targetRotation = new Vector3(270, 0, 0);
-				break;
-			case 5:
-				targetRotation = new Vector3(0, 90, 0);
-				break;
-			case 6:
-				targetRotation = new Vector3(0, -90, 0);
-				break;
-			default:
-				targetRotation = new Vector3(0, 0, 0);
-				break;
-		}
+        //Rotate the die.
+        Vector3 targetRotation;
 
-		var addedRotation = roll_count % 2 == 0 ? 0 : 360;
-		var goal = new Vector3(
-			targetRotation.x + addedRotation,
-			targetRotation.y + addedRotation,
-			targetRotation.z + addedRotation
-		);
+        switch (currentSide)
+        {
+            case 1:
+                targetRotation = new Vector3(0, 0, 0);
+                break;
+            case 2:
+                targetRotation = new Vector3(90, 0, 0);
+                break;
+            case 3:
+                targetRotation = new Vector3(180, 0, 0);
+                break;
+            case 4:
+                targetRotation = new Vector3(270, 0, 0);
+                break;
+            case 5:
+                targetRotation = new Vector3(0, 90, 0);
+                break;
+            case 6:
+                targetRotation = new Vector3(0, -90, 0);
+                break;
+            default:
+                targetRotation = new Vector3(0, 0, 0);
+                break;
+        }
 
-		rotator.RotationDegrees = new Vector3(rotator.RotationDegrees.LinearInterpolate(goal, rotation_speed * delta));
-	}
+        var addedRotation = roll_count % 2 == 0 ? 0 : 360;
+        var goal = new Vector3(
+            targetRotation.x + addedRotation,
+            targetRotation.y + addedRotation,
+            targetRotation.z + addedRotation
+        );
 
-	private void _on_Die_Container_pressed()
-	{
-		if (player.remainingMoves >= 1 && !player.moveLock && !player.actionLock)
-		{
-			if (diceType == DieType.Movement)
-			{
-				handleMovementClick();
-			}
-			else if (diceType == DieType.DoubleMovement)
-			{
-				handleDoubleMovementClick();
-			}
-			else
-			{
-				handleActionClick();
-			}
-		}
-	}
+        rotator.RotationDegrees = new Vector3(rotator.RotationDegrees.LinearInterpolate(goal, rotation_speed * delta));
+    }
 
-	private void handleMovementClick()
-	{
-		switch (currentSide)
-		{
-			case 1:
-				player._on_up_pressed();
-				break;
-			case 2:
-				player._on_down_pressed();
-				break;
-			case 3:
-				player._on_left_pressed();
-				break;
-			case 4:
-				player._on_right_pressed();
-				break;
-			case 5:
-				player._on_up_pressed();
-				break;
-			case 6:
-				player._on_up_pressed();
-				break;
-		}
-		roll();
-	}
+    private void _on_Die_Container_pressed()
+    {
+        if (player.remainingMoves >= 1 && !player.moveLock && !player.actionLock)
+        {
+            if (diceType == DieType.Movement)
+            {
+                handleMovementClick();
+            }
+            else if (diceType == DieType.DoubleMovement)
+            {
+                handleDoubleMovementClick();
+            }
+            else
+            {
+                handleActionClick();
+            }
+        }
+    }
 
-	private void handleDoubleMovementClick()
-	{
-		switch (currentSide)
-		{
-			case 1:
-				player._on_double_up_pressed();
-				break;
-			case 2:
-				player._on_double_down_pressed();
-				break;
-			case 3:
-				player._on_double_left_pressed();
-				break;
-			case 4:
-				player._on_double_right_pressed();
-				break;
-			case 5:
-				player._on_double_left_pressed();
-				break;
-			case 6:
-				player._on_double_right_pressed();
-				break;
-		}
-		roll();
-	}
+    private void handleMovementClick()
+    {
+        switch (currentSide)
+        {
+            case 1:
+                player._on_up_pressed();
+                break;
+            case 2:
+                player._on_down_pressed();
+                break;
+            case 3:
+                player._on_left_pressed();
+                break;
+            case 4:
+                player._on_right_pressed();
+                break;
+            case 5:
+                player._on_up_pressed();
+                break;
+            case 6:
+                player._on_up_pressed();
+                break;
+        }
+        roll();
+    }
 
-	private void handleActionClick()
-	{
-		switch (currentSide)
-		{
-			case 1:
-				player._on_action_heal_pressed();
-				break;
-			case 2:
-				player._on_action_shield_pressed();
-				break;
-			case 3:
-				player._on_action_light_attack_pressed();
-				break;
-			case 4:
-				player._on_action_area_attack_pressed();
-				break;
-			case 5:
-				player._on_action_range_attack_pressed();
-				break;
-			case 6:
-				player._on_action_light_attack_pressed();
-				break;
-		}
-	}
+    private void handleDoubleMovementClick()
+    {
+        switch (currentSide)
+        {
+            case 1:
+                player._on_double_up_pressed();
+                break;
+            case 2:
+                player._on_double_down_pressed();
+                break;
+            case 3:
+                player._on_double_left_pressed();
+                break;
+            case 4:
+                player._on_double_right_pressed();
+                break;
+            case 5:
+                player._on_double_up_pressed();
+                break;
+            case 6:
+                player._on_double_up_pressed();
+                break;
+        }
+        roll();
+    }
 
-	public void roll()
-	{
-		roll_count++;
-		Random rnd = new Random();
-		int newSide = currentSide;
-		while (newSide == currentSide)
-		{
-			newSide = rnd.Next(1, 7);
-		}
+    private void handleActionClick()
+    {
+        switch (currentSide)
+        {
+            case 1:
+                player._on_action_heal_pressed();
+                break;
+            case 2:
+                player._on_action_shield_pressed();
+                break;
+            case 3:
+                player._on_action_light_attack_pressed();
+                break;
+            case 4:
+                player._on_action_area_attack_pressed();
+                break;
+            case 5:
+                player._on_action_range_attack_pressed();
+                break;
+            case 6:
+                player._on_action_light_attack_pressed();
+                break;
+        }
+    }
 
-		currentSide = newSide;
-	}
+    public void roll()
+    {
+        roll_count++;
+        Random rnd = new Random();
+        int newSide = currentSide;
+        while (newSide == currentSide)
+        {
+            newSide = rnd.Next(1, 7);
+        }
+
+        // GD.Print("Rolled: " + newSide);
+
+        currentSide = newSide;
+    }
 }
