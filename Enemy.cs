@@ -111,10 +111,12 @@ public class Enemy : RigidBody
 	
 	public void startTurn()
 	{
-		remainingActions = defaultActionsPerTurn;
-		remainingMoves = defaultMovesPerTurn;
-		isEnemyTurn = true;
-		handleTurn();
+		if (!isDead) {
+			remainingActions = defaultActionsPerTurn;
+			remainingMoves = defaultMovesPerTurn;
+			isEnemyTurn = true;
+			handleTurn();
+		}
 	}
 	
 	public void handleTurn()
